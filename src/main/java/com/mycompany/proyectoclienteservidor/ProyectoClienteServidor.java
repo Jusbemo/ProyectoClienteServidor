@@ -15,5 +15,7 @@ public class ProyectoClienteServidor {
         System.out.println("MOISES");
         
         System.out.println("KKKKKKK");
+        System.out.println("KKKKKKK");
+        System.out.println("KKKKKKK");
     }
 }
