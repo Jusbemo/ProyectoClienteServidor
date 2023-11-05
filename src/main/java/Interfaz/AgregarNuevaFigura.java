@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Interfaz;
+import javax.swing.ImageIcon;
+
 
 /**
  *
@@ -15,8 +17,18 @@ public class AgregarNuevaFigura extends javax.swing.JFrame {
      */
     public AgregarNuevaFigura() {
         initComponents();
+        setComponentProperties();
     }
-
+    
+    public final void setComponentProperties(){
+        ImageIcon logo = new ImageIcon("fidepop-.png");
+        lblIcono.setText("");
+        lblIcono.setIcon(logo);
+        lblIcono.setBounds(50, 50, lblIcono.getPreferredSize().width, lblIcono.getPreferredSize().height);  
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,48 +38,236 @@ public class AgregarNuevaFigura extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        pnlWhiteBackground = new javax.swing.JPanel();
+        pnlBlueBackground = new javax.swing.JPanel();
+        lblIcono = new javax.swing.JLabel();
+        lblAgregaFigura = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
+        lblNumeroSerie = new javax.swing.JLabel();
+        lblTamanho = new javax.swing.JLabel();
+        lblFechaAdquisicion = new javax.swing.JLabel();
+        lblCategoria = new javax.swing.JLabel();
+        lblEstado = new javax.swing.JLabel();
+        lblPrecioEstimado = new javax.swing.JLabel();
+        lblMarca = new javax.swing.JLabel();
+        btnCancelar = new javax.swing.JButton();
+        btnGuardarFigura = new javax.swing.JButton();
+        txtNombre = new javax.swing.JTextField();
+        txtNumeroSerie = new javax.swing.JTextField();
+        txtTamanho = new javax.swing.JTextField();
+        txtFechaAdquisicion = new javax.swing.JTextField();
+        txtPrecioEstimado = new javax.swing.JTextField();
+        txtMarca = new javax.swing.JTextField();
+        cboxCategoria = new javax.swing.JComboBox<>();
+        cboxEstado = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1280, 830));
+        setResizable(false);
+        setSize(new java.awt.Dimension(1280, 830));
 
-        jTextField1.setText("jTextField1");
+        pnlWhiteBackground.setBackground(new java.awt.Color(255, 255, 255));
+        pnlWhiteBackground.setForeground(new java.awt.Color(255, 255, 255));
+        pnlWhiteBackground.setMaximumSize(new java.awt.Dimension(1280, 830));
+        pnlWhiteBackground.setMinimumSize(new java.awt.Dimension(1280, 830));
+        pnlWhiteBackground.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("jButton1");
+        pnlBlueBackground.setBackground(new java.awt.Color(1, 22, 39));
+        pnlBlueBackground.setMaximumSize(new java.awt.Dimension(610, 830));
+        pnlBlueBackground.setMinimumSize(new java.awt.Dimension(610, 830));
+        pnlBlueBackground.setPreferredSize(new java.awt.Dimension(616, 830));
+        pnlBlueBackground.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("jLabel1");
+        lblIcono.setText("jLabel1");
+        pnlBlueBackground.add(lblIcono, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
+
+        pnlWhiteBackground.add(pnlBlueBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 830));
+
+        lblAgregaFigura.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        lblAgregaFigura.setForeground(new java.awt.Color(1, 22, 39));
+        lblAgregaFigura.setText("¡AGREGA UNA NUEVA FIGURA A TU COLECCIÓN!");
+        pnlWhiteBackground.add(lblAgregaFigura, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, -1, -1));
+
+        lblNombre.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
+        lblNombre.setForeground(new java.awt.Color(1, 22, 39));
+        lblNombre.setText("Nombre");
+        pnlWhiteBackground.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, -1, -1));
+
+        lblNumeroSerie.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
+        lblNumeroSerie.setForeground(new java.awt.Color(1, 22, 39));
+        lblNumeroSerie.setText("Número de Serie");
+        pnlWhiteBackground.add(lblNumeroSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 130, -1, -1));
+
+        lblTamanho.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
+        lblTamanho.setForeground(new java.awt.Color(1, 22, 39));
+        lblTamanho.setText("Tamaño");
+        pnlWhiteBackground.add(lblTamanho, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 200, -1, -1));
+
+        lblFechaAdquisicion.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
+        lblFechaAdquisicion.setForeground(new java.awt.Color(1, 22, 39));
+        lblFechaAdquisicion.setText("Fecha de adquisición");
+        pnlWhiteBackground.add(lblFechaAdquisicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 260, -1, -1));
+
+        lblCategoria.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
+        lblCategoria.setForeground(new java.awt.Color(1, 22, 39));
+        lblCategoria.setText("Categoría");
+        pnlWhiteBackground.add(lblCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 330, -1, -1));
+
+        lblEstado.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
+        lblEstado.setForeground(new java.awt.Color(1, 22, 39));
+        lblEstado.setText("Estado");
+        pnlWhiteBackground.add(lblEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 400, -1, -1));
+
+        lblPrecioEstimado.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
+        lblPrecioEstimado.setForeground(new java.awt.Color(1, 22, 39));
+        lblPrecioEstimado.setText("Precio Estimado");
+        pnlWhiteBackground.add(lblPrecioEstimado, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 470, -1, -1));
+
+        lblMarca.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
+        lblMarca.setForeground(new java.awt.Color(1, 22, 39));
+        lblMarca.setText("Marca");
+        pnlWhiteBackground.add(lblMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 540, -1, -1));
+
+        btnCancelar.setBackground(new java.awt.Color(1, 22, 39));
+        btnCancelar.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setBorder(null);
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+        pnlWhiteBackground.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 650, 168, -1));
+
+        btnGuardarFigura.setBackground(new java.awt.Color(1, 22, 39));
+        btnGuardarFigura.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
+        btnGuardarFigura.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardarFigura.setText("Guardar figura");
+        btnGuardarFigura.setBorder(null);
+        btnGuardarFigura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardarFigura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarFiguraActionPerformed(evt);
+            }
+        });
+        pnlWhiteBackground.add(btnGuardarFigura, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 650, 168, -1));
+
+        txtNombre.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        txtNombre.setForeground(new java.awt.Color(198, 197, 197));
+        txtNombre.setText("Ingrese el nombre de la figura");
+        txtNombre.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+        pnlWhiteBackground.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 620, -1));
+
+        txtNumeroSerie.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        txtNumeroSerie.setForeground(new java.awt.Color(198, 197, 197));
+        txtNumeroSerie.setText("Ingrese el número de serie de la figura");
+        txtNumeroSerie.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        txtNumeroSerie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroSerieActionPerformed(evt);
+            }
+        });
+        pnlWhiteBackground.add(txtNumeroSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 160, 620, -1));
+
+        txtTamanho.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        txtTamanho.setForeground(new java.awt.Color(198, 197, 197));
+        txtTamanho.setText("Ingrese el tamaño de la figura");
+        txtTamanho.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        txtTamanho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTamanhoActionPerformed(evt);
+            }
+        });
+        pnlWhiteBackground.add(txtTamanho, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 230, 620, -1));
+
+        txtFechaAdquisicion.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        txtFechaAdquisicion.setForeground(new java.awt.Color(198, 197, 197));
+        txtFechaAdquisicion.setText("Ingrese la fecha de  adiquisición de la figura");
+        txtFechaAdquisicion.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        txtFechaAdquisicion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFechaAdquisicionActionPerformed(evt);
+            }
+        });
+        pnlWhiteBackground.add(txtFechaAdquisicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 290, 620, -1));
+
+        txtPrecioEstimado.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        txtPrecioEstimado.setForeground(new java.awt.Color(198, 197, 197));
+        txtPrecioEstimado.setText("Ingrese el precio estimado de la figura");
+        txtPrecioEstimado.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        txtPrecioEstimado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrecioEstimadoActionPerformed(evt);
+            }
+        });
+        pnlWhiteBackground.add(txtPrecioEstimado, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 500, 620, -1));
+
+        txtMarca.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        txtMarca.setForeground(new java.awt.Color(198, 197, 197));
+        txtMarca.setText("Ingrese la marca de la figura");
+        txtMarca.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        pnlWhiteBackground.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 570, 620, -1));
+
+        cboxCategoria.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        cboxCategoria.setForeground(new java.awt.Color(198, 197, 197));
+        cboxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione la categoría de la figura", "Item 2", "Item 3", "Item 4" }));
+        cboxCategoria.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        pnlWhiteBackground.add(cboxCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 360, 620, -1));
+
+        cboxEstado.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        cboxEstado.setForeground(new java.awt.Color(198, 197, 197));
+        cboxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione el estado de la figura", "Item 2", "Item 3", "Item 4" }));
+        cboxEstado.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        pnlWhiteBackground.add(cboxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 430, 620, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(178, 178, 178)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(164, Short.MAX_VALUE))
+            .addComponent(pnlWhiteBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 1280, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(jButton1)
-                .addContainerGap(144, Short.MAX_VALUE))
+            .addComponent(pnlWhiteBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnGuardarFiguraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarFiguraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarFiguraActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtNumeroSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroSerieActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumeroSerieActionPerformed
+
+    private void txtTamanhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTamanhoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTamanhoActionPerformed
+
+    private void txtPrecioEstimadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioEstimadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrecioEstimadoActionPerformed
+
+    private void txtFechaAdquisicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaAdquisicionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaAdquisicionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -105,8 +305,27 @@ public class AgregarNuevaFigura extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardarFigura;
+    private javax.swing.JComboBox<String> cboxCategoria;
+    private javax.swing.JComboBox<String> cboxEstado;
+    private javax.swing.JLabel lblAgregaFigura;
+    private javax.swing.JLabel lblCategoria;
+    private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblFechaAdquisicion;
+    private javax.swing.JLabel lblIcono;
+    private javax.swing.JLabel lblMarca;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblNumeroSerie;
+    private javax.swing.JLabel lblPrecioEstimado;
+    private javax.swing.JLabel lblTamanho;
+    private javax.swing.JPanel pnlBlueBackground;
+    private javax.swing.JPanel pnlWhiteBackground;
+    private javax.swing.JTextField txtFechaAdquisicion;
+    private javax.swing.JTextField txtMarca;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNumeroSerie;
+    private javax.swing.JTextField txtPrecioEstimado;
+    private javax.swing.JTextField txtTamanho;
     // End of variables declaration//GEN-END:variables
 }
