@@ -1,4 +1,4 @@
-package com.mycompany.proyectoclienteservidor;
+package Interfaz;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -82,6 +82,7 @@ public class Registro extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(1280, 830));
+        setResizable(false);
         setSize(new java.awt.Dimension(1280, 830));
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
@@ -127,6 +128,7 @@ public class Registro extends javax.swing.JFrame {
 
         nameTextField.setBackground(new java.awt.Color(255, 255, 255));
         nameTextField.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        nameTextField.setForeground(new java.awt.Color(204, 204, 204));
         nameTextField.setText("Ingrese su nombre");
         nameTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(1, 22, 39), 3, true));
         nameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -141,6 +143,7 @@ public class Registro extends javax.swing.JFrame {
 
         lastnameTextField.setBackground(new java.awt.Color(255, 255, 255));
         lastnameTextField.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        lastnameTextField.setForeground(new java.awt.Color(204, 204, 204));
         lastnameTextField.setText("Ingrese su apellido");
         lastnameTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(1, 22, 39), 3, true));
         lastnameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -161,6 +164,7 @@ public class Registro extends javax.swing.JFrame {
 
         emailTextField.setBackground(new java.awt.Color(255, 255, 255));
         emailTextField.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        emailTextField.setForeground(new java.awt.Color(204, 204, 204));
         emailTextField.setText("Ingrese su correo electrónico");
         emailTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(1, 22, 39), 3, true));
         emailTextField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -187,6 +191,7 @@ public class Registro extends javax.swing.JFrame {
 
         usernameTextField.setBackground(new java.awt.Color(255, 255, 255));
         usernameTextField.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        usernameTextField.setForeground(new java.awt.Color(204, 204, 204));
         usernameTextField.setText("Ingrese su nombre de usuario");
         usernameTextField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(1, 22, 39), 3, true));
         usernameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -206,6 +211,7 @@ public class Registro extends javax.swing.JFrame {
         jPanel5.add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 390, -1, -1));
 
         passwordField.setBackground(new java.awt.Color(255, 255, 255));
+        passwordField.setForeground(new java.awt.Color(204, 204, 204));
         passwordField.setText("password12345");
         passwordField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(1, 22, 39), 3, true));
         passwordField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -225,6 +231,7 @@ public class Registro extends javax.swing.JFrame {
         jPanel5.add(countryLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 550, -1, -1));
 
         confirmPasswordField.setBackground(new java.awt.Color(255, 255, 255));
+        confirmPasswordField.setForeground(new java.awt.Color(204, 204, 204));
         confirmPasswordField.setText("password12345");
         confirmPasswordField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(1, 22, 39), 3, true));
         confirmPasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -245,6 +252,7 @@ public class Registro extends javax.swing.JFrame {
 
         intereesComboBox.setBackground(new java.awt.Color(255, 255, 255));
         intereesComboBox.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        intereesComboBox.setForeground(new java.awt.Color(204, 204, 204));
         intereesComboBox.setMaximumRowCount(30);
         intereesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Eliga sus interéses", "Item 2", "Item 3", "Item 4" }));
         intereesComboBox.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(1, 22, 39), 1, true));
@@ -285,6 +293,7 @@ public class Registro extends javax.swing.JFrame {
 
         countryComboBox.setBackground(new java.awt.Color(255, 255, 255));
         countryComboBox.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        countryComboBox.setForeground(new java.awt.Color(204, 204, 204));
         countryComboBox.setMaximumRowCount(30);
         countryComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione su país", "Item 2", "Item 3", "Item 4" }));
         countryComboBox.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(1, 22, 39), 1, true));
