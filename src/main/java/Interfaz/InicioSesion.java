@@ -1,4 +1,4 @@
-package com.mycompany.proyectoclienteservidor;
+package Interfaz;
 
 import javax.swing.*;
 import javax.swing.ImageIcon;
@@ -6,8 +6,11 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.font.TextAttribute;
 import java.awt.geom.RoundRectangle2D;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class InicioSesion extends javax.swing.JFrame {
 
@@ -19,9 +22,9 @@ public class InicioSesion extends javax.swing.JFrame {
 
     public final void setComponentProperties() {
         ImageIcon logo = new ImageIcon("redLogo.jpeg");
-        jLabel2.setText("");
-        jLabel2.setIcon(logo);
-        jLabel2.setBounds(50, 50, jLabel2.getPreferredSize().width, jLabel2.getPreferredSize().height);
+        icono.setText("");
+        icono.setIcon(logo);
+        icono.setBounds(50, 50, icono.getPreferredSize().width, icono.getPreferredSize().height);
 
         configureRoundedBorder(jTextField1, Color.BLACK, 12, 10);
         configureRoundedBorder(jPasswordField1, Color.BLACK, 12, 10);
@@ -54,7 +57,7 @@ public class InicioSesion extends javax.swing.JFrame {
 
         bg = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        icono = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -83,9 +86,9 @@ public class InicioSesion extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(1, 22, 39));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("jLabel1");
-        jLabel2.setAlignmentY(0.0F);
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, -1, -1));
+        icono.setText("jLabel1");
+        icono.setAlignmentY(0.0F);
+        jPanel2.add(icono, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 34));
@@ -259,9 +262,9 @@ public class InicioSesion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
+    private javax.swing.JLabel icono;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

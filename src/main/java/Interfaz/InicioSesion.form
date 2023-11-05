@@ -83,7 +83,7 @@
             <Property name="useNullLayout" type="boolean" value="false"/>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel2">
+            <Component class="javax.swing.JLabel" name="icono">
               <Properties>
                 <Property name="text" type="java.lang.String" value="jLabel1"/>
                 <Property name="alignmentY" type="float" value="0.0"/>
