@@ -1,15 +1,28 @@
 package Interfaz;
 
+import Clases.Usuario;
+import Conexion.Conexion;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.RoundRectangle2D;
+import java.sql.CallableStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.border.LineBorder;
+import java.util.Locale;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.swing.JOptionPane;
 
 public class Registro extends javax.swing.JFrame {
+
+    private static String[] paises = Locale.getISOCountries();
 
     public Registro() {
         initComponents();
@@ -31,6 +44,30 @@ public class Registro extends javax.swing.JFrame {
 
         configureRoundedBorder(createButton, Color.decode("#011627"), 12, 10);
         configureRoundedBorder(loginButton, Color.decode("#011627"), 12, 10);
+
+        intereesComboBox.addItem("Cómics & Superhéroes");
+        intereesComboBox.addItem("Películas");
+        intereesComboBox.addItem("Series & Televisión");
+        intereesComboBox.addItem("Videojuegos");
+        intereesComboBox.addItem("Anime");
+        intereesComboBox.addItem("Deportes");
+        intereesComboBox.addItem("Música");
+        intereesComboBox.addItem("Disney");
+        intereesComboBox.addItem("Otros");
+
+        Arrays.sort(paises);
+        for (String code : paises) {
+            Locale pais = new Locale("", code);
+
+            countryComboBox.addItem(pais.getDisplayCountry(new Locale("es")));
+        }
+
+        if (countryComboBox.getSelectedItem().equals("Seleccione su país")) {
+            countryComboBox.setForeground(Color.gray);
+        } else {
+            countryComboBox.setForeground(Color.BLACK);
+
+        }
     }
 
     private void configureRoundedBorder(JComponent component, Color color, int radius, int thickness) {
@@ -45,6 +82,56 @@ public class Registro extends javax.swing.JFrame {
             }
         };
         component.setBorder(roundBorder);
+    }
+
+    //FUNCIONES DE VALIDACION
+    private static boolean isInvalidName(String nombre) {
+        return nombre.isEmpty() || nombre.equals("Ingrese su nombre");
+    }
+
+    private static boolean isInvalidLastName(String apellido) {
+        return apellido.isEmpty() || apellido.equals("Ingrese su apellido");
+    }
+
+    private static boolean isInvalidPassword(String password) {
+        return password.isEmpty() || password.equals("password12345") || password.length() < 8;
+    }
+
+    private static boolean isInvalidConfirmationPassword(String password, String confirmPwd) {
+        return !confirmPwd.equals(password);
+    }
+
+    private static boolean isInvalidCountry(String pais) {
+        return pais.equals("Seleccione su país");
+    }
+
+    private static boolean isInvalidInterest(String interes) {
+        return interes.equals("Eliga sus interéses");
+    }
+
+    private static boolean isInvalidAge(String age) {
+        if (age.isEmpty()) {
+            return true;
+        }
+
+        try {
+            int ageValue = Integer.parseInt(age);
+            return ageValue < 16;
+        } catch (NumberFormatException e) {
+            return true;
+        }
+
+    }
+
+    private static boolean isInvalidEmailAddress(String email) {
+        boolean result = false;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } catch (AddressException ex) {
+            result = true;
+        }
+        return result;
     }
 
     @SuppressWarnings("unchecked")
@@ -252,9 +339,9 @@ public class Registro extends javax.swing.JFrame {
 
         intereesComboBox.setBackground(new java.awt.Color(255, 255, 255));
         intereesComboBox.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        intereesComboBox.setForeground(new java.awt.Color(204, 204, 204));
+        intereesComboBox.setForeground(new java.awt.Color(153, 153, 153));
         intereesComboBox.setMaximumRowCount(30);
-        intereesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Eliga sus interéses", "Item 2", "Item 3", "Item 4" }));
+        intereesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Eliga sus interéses" }));
         intereesComboBox.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(1, 22, 39), 1, true));
         jPanel5.add(intereesComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 670, 610, 37));
 
@@ -275,6 +362,11 @@ public class Registro extends javax.swing.JFrame {
         loginButton.setText("Iniciar Sesión");
         loginButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(1, 22, 39), 2, true));
         loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButtonActionPerformed(evt);
+            }
+        });
         jPanel5.add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 740, 194, 52));
 
         createButton.setBackground(new java.awt.Color(1, 22, 39));
@@ -283,6 +375,11 @@ public class Registro extends javax.swing.JFrame {
         createButton.setText("Crear Usuario");
         createButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(1, 22, 39), 2, true));
         createButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        createButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createButtonActionPerformed(evt);
+            }
+        });
         jPanel5.add(createButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 740, 194, 52));
 
         usernameLabel.setBackground(new java.awt.Color(255, 255, 255));
@@ -295,7 +392,8 @@ public class Registro extends javax.swing.JFrame {
         countryComboBox.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         countryComboBox.setForeground(new java.awt.Color(204, 204, 204));
         countryComboBox.setMaximumRowCount(30);
-        countryComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione su país", "Item 2", "Item 3", "Item 4" }));
+        countryComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione su país" }));
+        countryComboBox.setToolTipText("");
         countryComboBox.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(1, 22, 39), 1, true));
         jPanel5.add(countryComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 590, 273, 37));
 
@@ -400,6 +498,103 @@ public class Registro extends javax.swing.JFrame {
             confirmPasswordField.setForeground(Color.gray);
         }
     }//GEN-LAST:event_confirmPasswordFieldFocusLost
+
+    private Usuario getUserInformation() {
+
+        String nombre = nameTextField.getText();
+        String apellido = lastnameTextField.getText();
+        String edad = ageSpinner.getValue().toString();
+        String pais = countryComboBox.getSelectedItem().toString();
+        String username = usernameTextField.getText().trim().toLowerCase();
+        String email = emailTextField.getText().trim();
+        String password = String.valueOf(passwordField.getPassword());
+        String confirmPwd = String.valueOf(confirmPasswordField.getPassword());
+        Usuario usuario = new Usuario();
+
+        if (isInvalidName(nombre)) {
+            JOptionPane.showMessageDialog(this, "El campo nombre debe ser completado");
+        } else if (isInvalidLastName(apellido)) {
+            JOptionPane.showMessageDialog(this, "El campo apellido debe ser completado");
+        } else if (isInvalidEmailAddress(email)) {
+            JOptionPane.showMessageDialog(this, "El email no cumple con el formato adecuado o aún no has completado el campo");
+        } else if (Usuario.isInvalidUsername(usernameTextField)) {
+            JOptionPane.showMessageDialog(this, "El nombre de usuario no se ha ingresado o el valor ingresado ya existe");
+        } else if (isInvalidPassword(password)) {
+            JOptionPane.showMessageDialog(this, "La contraseña no cumple con los requisitos mínimos (mayor a 8 caracteres)");
+        } else if (isInvalidConfirmationPassword(password, confirmPwd)) {
+            JOptionPane.showMessageDialog(this, "La contraseñas no coinciden");
+        } else if (isInvalidCountry(pais)) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un País");
+        } else if (isInvalidAge(edad)) {
+            JOptionPane.showMessageDialog(this, "Edad ingresada en formato incorrecto o menor a 16");
+        } else if (isInvalidInterest(intereesComboBox.getSelectedItem().toString())) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un interés");
+        } else {
+            ArrayList<String> intereses = new ArrayList<String>();
+            intereses.add(intereesComboBox.getSelectedItem().toString());
+            int edadInt = Integer.parseInt(edad);
+
+            usuario.setNombre(nombre);
+            usuario.setApellido(apellido);
+            usuario.setEdad(edadInt);
+            usuario.setPais(pais);
+            usuario.setUsername(username);
+            usuario.setEmail(email);
+            usuario.setPassword(password);
+            usuario.setIntereses(intereses);
+
+        }
+
+        return usuario;
+    }
+
+    private void reestablecerCampos() {
+        nameTextField.setText("Ingrese su nombre");
+        lastnameTextField.setText("Ingrese su apellido");
+        emailTextField.setText("Ingrese su correo electrónico");
+        usernameTextField.setText("Ingrese su nombre de usuario");
+        passwordField.setText("password12345");
+        confirmPasswordField.setText("password12345");
+        countryComboBox.setSelectedIndex(0);
+        ageSpinner.setValue(0);
+        intereesComboBox.setSelectedIndex(0);
+    }
+
+    private void crearInteres(String interes, String usuario) {
+
+        Conexion conexion = new Conexion();
+
+        String sql = "INSERT INTO intereses (interes, usuarioAsociado) VALUES (? , ?)";
+
+        try (CallableStatement cs = conexion.establecerConexion().prepareCall(sql)) {
+
+            cs.setString(1, interes);
+            cs.setString(2, usuario);
+
+            cs.execute();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos. Error: " + e.getMessage());
+        }
+    }
+
+    private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
+        Usuario usuario = getUserInformation();
+
+        if (usuario.validarAtributos()) {
+            Usuario.crearUsuarioBD(usuario);
+            crearInteres(intereesComboBox.getSelectedItem().toString(), usuario.getUsername());
+            JOptionPane.showMessageDialog(this, "Se creo el usuario " + usuario.getUsername() + " en la base de datos\n"
+                    + "Si desea acceder con su nueva cuenta, por favor presione la opción 'Iniciar Sesión'");
+            this.reestablecerCampos();
+        }
+
+
+    }//GEN-LAST:event_createButtonActionPerformed
+
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        this.dispose();
+        new InicioSesion().setVisible(true);
+    }//GEN-LAST:event_loginButtonActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
