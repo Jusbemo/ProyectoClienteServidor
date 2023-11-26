@@ -3,14 +3,14 @@ package Clases;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-
 public class Reseña {
-      private Usuario usuario;
-      private String titulo;
-      private String texto;
-      private LocalDate fechaResenia;
-      private LocalTime horaResenia;
-      private int calificacion;  
+
+    private Usuario usuario;
+    private String titulo;
+    private String texto;
+    private LocalDate fechaResenia;
+    private LocalTime horaResenia;
+    private int calificacion;
 
     public Reseña() {
     }
@@ -71,6 +71,5 @@ public class Reseña {
     public void setCalificacion(int calificacion) {
         this.calificacion = calificacion;
     }
-      
-      
+
 }

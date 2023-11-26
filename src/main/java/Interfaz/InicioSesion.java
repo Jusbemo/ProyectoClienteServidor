@@ -1,5 +1,7 @@
 package Interfaz;
 
+import Clases.Figura;
+import Clases.Reseña;
 import Clases.Usuario;
 import Conexion.Conexion;
 import javax.swing.*;
@@ -11,6 +13,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -112,7 +115,7 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(1, 22, 39));
         jLabel3.setText("Nombre de usuario");
-        bg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 270, -1, 20));
+        bg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 270, 220, 20));
 
         jLabel5.setFont(new java.awt.Font("Roboto", 1, 34)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(1, 22, 39));
@@ -290,14 +293,15 @@ public class InicioSesion extends javax.swing.JFrame {
     }
 
     private Usuario validarInicioSesion(String username, String password) {
-        //RETORNAR EL USUARIO CON LOS DATOS EN CASO DE QUE SE ENCUENTRE
         Conexion conexion = new Conexion();
 
-        String sql = "SELECT * FROM usuarios WHERE usuario = ? AND contraseña = ?";
-        String interesSql = "SELECT * FROM intereses WHERE usuarioAsociado = ?";
+        String sql = "SELECT nombre,apellido,edad,usuario,pais,correo,contraseña FROM usuarios WHERE usuario = ? AND contraseña = ?";
+        String interesSql = "SELECT interes FROM intereses WHERE usuarioAsociado = ?";
+        String figurasSql = "SELECT nombre,numeroSerie,fechaAdquisicion,tamaño,precio,categoria,estado,usuario,marca FROM figuras WHERE usuario = ?";
+        String reseniasSql = "SELECT usuario,figura,calificacion,contenido,titulo,fecha,hora FROM reseñas WHERE figura = ?";
         String hashPassword = hashPassword(password);
 
-        try (Connection connection = conexion.establecerConexion(); PreparedStatement ps = connection.prepareStatement(sql); PreparedStatement interesPs = connection.prepareStatement(interesSql);) {
+        try (Connection connection = conexion.establecerConexion(); PreparedStatement ps = connection.prepareStatement(sql); PreparedStatement interesPs = connection.prepareStatement(interesSql); PreparedStatement figurasPs = connection.prepareStatement(figurasSql); PreparedStatement reseniasPs = connection.prepareStatement(reseniasSql);) {
 
             ps.setString(1, username);
             ps.setString(2, hashPassword);
@@ -313,17 +317,12 @@ public class InicioSesion extends javax.swing.JFrame {
                     usuario.setEmail(rs.getString("correo"));
                     usuario.setPassword(rs.getString("contraseña"));
 
-                    ArrayList<String> intereses = new ArrayList<>();
+                    ArrayList<String> intereses = obtenerIntereses(usuario, interesPs);
 
-                    interesPs.setString(1, username);
-
-                    try (ResultSet interesRs = interesPs.executeQuery()) {
-                        while (interesRs.next()) {
-                            intereses.add(interesRs.getString("interes"));
-                        }
-                    }
+                    ArrayList<Figura> figuras = obtenerFiguras(usuario, figurasPs, reseniasPs);
 
                     usuario.setIntereses(intereses);
+                    usuario.setColeccion(figuras);
 
                     return usuario;
                 }
@@ -335,6 +334,70 @@ public class InicioSesion extends javax.swing.JFrame {
         return null;
     }
 
+    private ArrayList<String> obtenerIntereses(Usuario usuario, PreparedStatement interesPs) throws SQLException {
+        ArrayList<String> intereses = new ArrayList<>();
+
+        interesPs.setString(1, usuario.getUsername());
+
+        try (ResultSet interesRs = interesPs.executeQuery()) {
+            while (interesRs.next()) {
+                intereses.add(interesRs.getString("interes"));
+            }
+        }
+
+        return intereses;
+    }
+
+    private ArrayList<Figura> obtenerFiguras(Usuario usuario, PreparedStatement figurasPs, PreparedStatement reseniasPs) throws SQLException {
+        ArrayList<Figura> figuras = new ArrayList<>();
+
+        figurasPs.setString(1, usuario.getUsername());
+
+        try (ResultSet figurasRs = figurasPs.executeQuery()) {
+            while (figurasRs.next()) {
+                Figura figura = new Figura();
+                figura.setNombre(figurasRs.getString("nombre"));
+                figura.setNumeroSerie(figurasRs.getString("numeroSerie"));
+                figura.setFechaAdquisicion(figurasRs.getDate("fechaAdquisicion").toLocalDate());
+                figura.setTamanio(figurasRs.getDouble("tamaño"));
+                figura.setValor(figurasRs.getDouble("precio"));
+                figura.setCategoria(figurasRs.getString("categoria"));
+                figura.setEstado(figurasRs.getString("estado"));
+                figura.setMarca(figurasRs.getString("marca"));
+
+                ArrayList<Reseña> resenias = obtenerResenias(figura.getNumeroSerie(), reseniasPs, usuario);
+
+                figura.setResenias(resenias);
+                figuras.add(figura);
+            }
+        }
+
+        return figuras;
+    }
+
+    private ArrayList<Reseña> obtenerResenias(String numeroSerie, PreparedStatement reseniasPs, Usuario usuario) throws SQLException {
+        ArrayList<Reseña> resenias = new ArrayList<>();
+
+        reseniasPs.setString(1, numeroSerie);
+
+        try (ResultSet reseniasRs = reseniasPs.executeQuery()) {
+            while (reseniasRs.next()) {
+                Reseña reseña = new Reseña();
+                reseña.setTitulo(reseniasRs.getString("titulo"));
+                reseña.setTexto(reseniasRs.getString("contenido"));
+                reseña.setCalificacion(reseniasRs.getInt("calificacion"));
+                reseña.setUsuario(usuario);
+                reseña.setHoraResenia(reseniasRs.getTime("hora").toLocalTime());
+                reseña.setFechaResenia(reseniasRs.getDate("fecha").toLocalDate());
+
+                resenias.add(reseña);
+            }
+        }
+
+        return resenias;
+    }
+
+
     private void btnIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseClicked
 
         String username = txtUsername.getText();
@@ -343,16 +406,17 @@ public class InicioSesion extends javax.swing.JFrame {
         Usuario usuario = validarInicioSesion(username, password);
 
         try {
-            if (usuario.validarAtributos()) {
-                
-                
-                //AGREGAR CODIGO PARA INICIO SE LE DEBE ENVIAR COMO PARAMETRO EL OBJETO USUARIO A LA NUEVA VENTANA INICIO
-                new Inicio2().setVisible(true);
+            if (usuario != null && usuario.validarAtributos()) {
+                // AGREGAR CODIGO PARA INICIO SE LE DEBE ENVIAR COMO PARAMETRO EL OBJETO USUARIO A LA NUEVA VENTANA INICIO
+                Inicio1 inicio = new Inicio1(usuario);
+                inicio.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "El usuario o contraseña son incorrectos");
             }
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(this, "El usuario o contraseña son incorrectos");
+            JOptionPane.showMessageDialog(this, "Hubo un error al procesar el inicio de sesión");
         }
-
 
     }//GEN-LAST:event_btnIniciarSesionMouseClicked
 
