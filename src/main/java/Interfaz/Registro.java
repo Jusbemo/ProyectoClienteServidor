@@ -11,7 +11,6 @@ import java.sql.CallableStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.border.LineBorder;
@@ -509,6 +508,7 @@ public class Registro extends javax.swing.JFrame {
         String email = emailTextField.getText().trim();
         String password = String.valueOf(passwordField.getPassword());
         String confirmPwd = String.valueOf(confirmPasswordField.getPassword());
+        
         Usuario usuario = new Usuario();
 
         if (isInvalidName(nombre)) {
