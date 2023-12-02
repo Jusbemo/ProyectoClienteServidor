@@ -260,10 +260,18 @@ public class MisFiguras extends javax.swing.JFrame {
 
     private void deleteTableRow() {
         DefaultTableModel model = (DefaultTableModel) jtblVerEditar.getModel();
-        if (jtblVerEditar.getSelectedRow() >= 0) {
-            model.removeRow(jtblVerEditar.getSelectedRow());
-        }
 
+        int selectedRow = jtblVerEditar.getSelectedRow();
+
+        if (selectedRow != -1) {
+            model.removeRow(selectedRow);
+        } else {
+            if (model.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "Aún no has agregado figuras a tu colección, por lo que no puedes eliminar");
+            } else {
+                JOptionPane.showMessageDialog(this, "Por favor, seleccione la figura que desea eliminar de su lista");
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -763,6 +771,7 @@ public class MisFiguras extends javax.swing.JFrame {
 
         return null;
     }
+
     private void btnEditarFiguraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarFiguraActionPerformed
         Figura figura = validarDatosFiguraEditada();
 
@@ -780,18 +789,22 @@ public class MisFiguras extends javax.swing.JFrame {
 
         int selectedRowIndex = jtblVerEditar.getSelectedRow();
 
-        figura.setNumeroSerie(model.getValueAt(selectedRowIndex, 0).toString());
-        figura.setNombre(model.getValueAt(selectedRowIndex, 1).toString());
-        figura.setMarca(model.getValueAt(selectedRowIndex, 2).toString());
-        figura.setFechaAdquisicion((LocalDate) model.getValueAt(selectedRowIndex, 3));
-        figura.setEstado(model.getValueAt(selectedRowIndex, 4).toString());
-        figura.setTamanio((Double) model.getValueAt(selectedRowIndex, 5));
-        figura.setCategoria(model.getValueAt(selectedRowIndex, 6).toString());
-        figura.setValor((Double) model.getValueAt(selectedRowIndex, 7));
+        if (selectedRowIndex != -1) {
+            figura.setNumeroSerie(model.getValueAt(selectedRowIndex, 0).toString());
+            figura.setNombre(model.getValueAt(selectedRowIndex, 1).toString());
+            figura.setMarca(model.getValueAt(selectedRowIndex, 2).toString());
+            figura.setFechaAdquisicion((LocalDate) model.getValueAt(selectedRowIndex, 3));
+            figura.setEstado(model.getValueAt(selectedRowIndex, 4).toString());
+            figura.setTamanio((Double) model.getValueAt(selectedRowIndex, 5));
+            figura.setCategoria(model.getValueAt(selectedRowIndex, 6).toString());
+            figura.setValor((Double) model.getValueAt(selectedRowIndex, 7));
 
-        Figura.eliminarFiguraDB(figura.getNumeroSerie());
-        deleteTableRow();
+            Figura.eliminarFiguraDB(figura.getNumeroSerie());
+            deleteTableRow();
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione la figura que desea eliminar de su lista");
     }//GEN-LAST:event_btnEliminarFiguraActionPerformed
+    }
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
