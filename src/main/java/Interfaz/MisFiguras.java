@@ -258,6 +258,14 @@ public class MisFiguras extends javax.swing.JFrame {
         model.addRow(rowData);
     }
 
+    private void deleteTableRow() {
+        DefaultTableModel model = (DefaultTableModel) jtblVerEditar.getModel();
+        if (jtblVerEditar.getSelectedRow() >= 0) {
+            model.removeRow(jtblVerEditar.getSelectedRow());
+        }
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -351,6 +359,11 @@ public class MisFiguras extends javax.swing.JFrame {
         btnEliminarFigura.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarFigura.setText("Eliminar figura");
         btnEliminarFigura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminarFigura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarFiguraActionPerformed(evt);
+            }
+        });
         pnlVerEditarFigura.add(btnEliminarFigura, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 420, 210, 40));
         btnEliminarFigura.getAccessibleContext().setAccessibleName("Agrega una nueva figura");
 
@@ -756,10 +769,29 @@ public class MisFiguras extends javax.swing.JFrame {
         if (figura != null) {
             Figura.actualizarFiguraDB(figura, usuario.getUsername());
             JOptionPane.showMessageDialog(this, "La información de su figura ha sido actualizada");
-        } 
+        }
 
 
     }//GEN-LAST:event_btnEditarFiguraActionPerformed
+
+    private void btnEliminarFiguraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarFiguraActionPerformed
+        Figura figura = new Figura();
+        DefaultTableModel model = (DefaultTableModel) jtblVerEditar.getModel();
+
+        int selectedRowIndex = jtblVerEditar.getSelectedRow();
+
+        figura.setNumeroSerie(model.getValueAt(selectedRowIndex, 0).toString());
+        figura.setNombre(model.getValueAt(selectedRowIndex, 1).toString());
+        figura.setMarca(model.getValueAt(selectedRowIndex, 2).toString());
+        figura.setFechaAdquisicion((LocalDate) model.getValueAt(selectedRowIndex, 3));
+        figura.setEstado(model.getValueAt(selectedRowIndex, 4).toString());
+        figura.setTamanio((Double) model.getValueAt(selectedRowIndex, 5));
+        figura.setCategoria(model.getValueAt(selectedRowIndex, 6).toString());
+        figura.setValor((Double) model.getValueAt(selectedRowIndex, 7));
+
+        Figura.eliminarFiguraDB(figura.getNumeroSerie());
+        deleteTableRow();
+    }//GEN-LAST:event_btnEliminarFiguraActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
