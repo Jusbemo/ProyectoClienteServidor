@@ -3,6 +3,7 @@ package Clases;
 import Conexion.Conexion;
 import java.sql.CallableStatement;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -177,8 +178,21 @@ public class Figura {
             cs.execute();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos. Error: " + e.getMessage());
-            System.out.println(e.getMessage());
 
+        }
+    }
+
+    public static void eliminarFiguraDB(String numeroSerie) {
+        Conexion conexion = new Conexion();
+        String sql = "DELETE FROM figuras WHERE numeroSerie = ?";
+
+        try (PreparedStatement ps = conexion.establecerConexion().prepareStatement(sql)) {
+
+            ps.setString(1, numeroSerie);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos. Error: " + e.getMessage());
         }
     }
 
