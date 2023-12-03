@@ -219,6 +219,11 @@ public class Inicio2 extends javax.swing.JFrame {
 
         userIcon.setText("jLabel1");
         userIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        userIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userIconMouseClicked(evt);
+            }
+        });
         navBar.add(userIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 30, -1, -1));
 
         bg.add(navBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 100));
@@ -690,6 +695,11 @@ public class Inicio2 extends javax.swing.JFrame {
     private void btnComentario1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComentario1MouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_btnComentario1MouseExited
+
+    private void userIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userIconMouseClicked
+       new Perfil(usuario).setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_userIconMouseClicked
 
     private ArrayList<Figura> obtenerFiguras() {
         Conexion conexion = new Conexion();
