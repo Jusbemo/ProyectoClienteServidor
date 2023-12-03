@@ -1,5 +1,6 @@
 package Interfaz;
 
+import Clases.Figura;
 import Clases.Usuario;
 import javax.swing.ImageIcon;
 
@@ -28,7 +29,7 @@ public class Perfil extends javax.swing.JFrame {
 
     }
 
-    private void mostrarInformacionUsuario(Usuario usuario) {
+    private void mostrarInformacionUsuario(Usuario usuario) {     
         if (usuario != null) {
             lblNombreUsuario.setText("@" + usuario.getUsername());
             lblNombreAboutMe.setText(usuario.getNombre());
@@ -41,9 +42,14 @@ public class Perfil extends javax.swing.JFrame {
             for (String interes : usuario.getIntereses()) {
                 lblInteresesAboutMe.setText(interes + "\n");
             }
+            double precioEstimado = 0.0;
+            for (Figura figura : usuario.getColeccion()) {
+                precioEstimado += figura.getValor();
+            }
+            lblPrecio.setText(String.valueOf(precioEstimado));  
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -70,8 +76,10 @@ public class Perfil extends javax.swing.JFrame {
         pnlNotificaciones = new javax.swing.JPanel();
         lblNúmero = new javax.swing.JLabel();
         lblNúmeroFiguras = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        backLbl = new javax.swing.JLabel();
         lblIconoFide1 = new javax.swing.JLabel();
+        lblPrecioEstimado = new javax.swing.JLabel();
+        lblPrecio = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1280, 830));
@@ -241,27 +249,38 @@ public class Perfil extends javax.swing.JFrame {
         lblNúmero.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
         lblNúmero.setForeground(new java.awt.Color(255, 255, 255));
         lblNúmero.setText("0");
-        pnlPerfil.add(lblNúmero, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 60, -1));
+        pnlPerfil.add(lblNúmero, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 350, -1));
 
         lblNúmeroFiguras.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
         lblNúmeroFiguras.setForeground(new java.awt.Color(255, 255, 255));
         lblNúmeroFiguras.setText("Número de figuras");
-        pnlPerfil.add(lblNúmeroFiguras, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 370, -1));
+        pnlPerfil.add(lblNúmeroFiguras, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 370, -1));
 
-        jLabel1.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Volver");
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        backLbl.setFont(new java.awt.Font("Roboto", 1, 21)); // NOI18N
+        backLbl.setForeground(new java.awt.Color(255, 255, 255));
+        backLbl.setText("Volver");
+        backLbl.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backLbl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                backLblMouseClicked(evt);
             }
         });
-        pnlPerfil.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 20, -1, -1));
+        pnlPerfil.add(backLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 20, -1, -1));
 
         lblIconoFide1.setText("logoFide");
         lblIconoFide1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        pnlPerfil.add(lblIconoFide1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 10, -1, -1));
+        pnlPerfil.add(lblIconoFide1, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 20, -1, -1));
+
+        lblPrecioEstimado.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
+        lblPrecioEstimado.setForeground(new java.awt.Color(255, 255, 255));
+        lblPrecioEstimado.setText("Precio Estimado");
+        pnlPerfil.add(lblPrecioEstimado, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 370, -1));
+
+        lblPrecio.setBackground(new java.awt.Color(255, 255, 255));
+        lblPrecio.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
+        lblPrecio.setForeground(new java.awt.Color(255, 255, 255));
+        lblPrecio.setText("0");
+        pnlPerfil.add(lblPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 330, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -277,12 +296,11 @@ public class Perfil extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        Inicio2 volver = new Inicio2(usuario);
-        volver.setVisible(true);
+    private void backLblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backLblMouseClicked
+       new Inicio2(usuario).setVisible(true);
         this.dispose();
 
-    }//GEN-LAST:event_jLabel1MouseClicked
+    }//GEN-LAST:event_backLblMouseClicked
 
     private void lblIconoVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIconoVolverMouseClicked
         new Inicio2(usuario).setVisible(true);
@@ -299,7 +317,7 @@ public class Perfil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel backLbl;
     private javax.swing.JLabel lblApellidos;
     private javax.swing.JLabel lblApellidosAboutMe;
     private javax.swing.JLabel lblCorreo;
@@ -317,6 +335,8 @@ public class Perfil extends javax.swing.JFrame {
     private javax.swing.JLabel lblNúmeroFiguras;
     private javax.swing.JLabel lblPais;
     private javax.swing.JLabel lblPaisAboutMe;
+    private javax.swing.JLabel lblPrecio;
+    private javax.swing.JLabel lblPrecioEstimado;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblUsuarioAboutMe;
     private javax.swing.JPanel pnlNotificaciones;

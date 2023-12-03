@@ -497,14 +497,6 @@ public class Inicio2 extends javax.swing.JFrame {
         btnComentario1.setToolTipText("");
         btnComentario1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(1, 22, 39), 2, true));
         btnComentario1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnComentario1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnComentario1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnComentario1MouseExited(evt);
-            }
-        });
         bg.add(btnComentario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(833, 741, 194, 52));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -687,14 +679,6 @@ public class Inicio2 extends javax.swing.JFrame {
             searchTxt.setForeground(Color.WHITE);
         }
     }//GEN-LAST:event_searchTxtFocusLost
-
-    private void btnComentario1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComentario1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnComentario1MouseEntered
-
-    private void btnComentario1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComentario1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnComentario1MouseExited
 
     private void userIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userIconMouseClicked
        new Perfil(usuario).setVisible(true);
