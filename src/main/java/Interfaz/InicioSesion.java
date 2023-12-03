@@ -13,7 +13,6 @@ import java.awt.geom.RoundRectangle2D;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -408,7 +407,7 @@ public class InicioSesion extends javax.swing.JFrame {
         try {
             if (usuario != null && usuario.validarAtributos()) {
                 // AGREGAR CODIGO PARA INICIO SE LE DEBE ENVIAR COMO PARAMETRO EL OBJETO USUARIO A LA NUEVA VENTANA INICIO
-                Inicio1 inicio = new Inicio1(usuario);
+                Inicio2 inicio = new Inicio2(usuario);
                 inicio.setVisible(true);
                 this.dispose();
             } else {
