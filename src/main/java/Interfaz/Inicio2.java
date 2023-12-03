@@ -1,32 +1,37 @@
 package Interfaz;
 
+import Clases.Figura;
+import Clases.Usuario;
+import Conexion.Conexion;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
 import java.awt.geom.RoundRectangle2D;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-
 import java.util.List;
 import javax.swing.ImageIcon;
-
 import javax.swing.JComponent;
 import javax.swing.RowFilter;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
-
 import java.util.stream.Collectors;
-
+import javax.swing.JOptionPane;
 
 public class Inicio2 extends javax.swing.JFrame {
 
     private TableRowSorter<DefaultTableModel> rowSorter;
+    private Usuario usuario;
+    private ArrayList<Figura> figuras = new ArrayList<>();
 
-    public Inicio2() {
+    public Inicio2(Usuario usuario) {
+        this.usuario = usuario;
         initComponents();
         setComponentProperties();
 
@@ -86,6 +91,22 @@ public class Inicio2 extends javax.swing.JFrame {
         tHeader.setForeground(Color.WHITE);
         tHeader.setFont(new Font("Roboto", Font.BOLD, 24));
 
+        figuras = obtenerFiguras();
+        Object rowData[] = new Object[7];
+
+        for (Figura figura : figuras) {
+            rowData[0] = figura.getNombre();
+            rowData[1] = figura.getMarca();
+            rowData[2] = figura.getFechaAdquisicion();
+            rowData[3] = figura.getEstado();
+            rowData[4] = figura.getTamanio();
+            rowData[5] = figura.getCategoria();
+            rowData[6] = figura.getValor();
+
+            model.addRow(rowData);
+
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -125,6 +146,7 @@ public class Inicio2 extends javax.swing.JFrame {
         chBoxRestaurada = new javax.swing.JCheckBox();
         btnComentario = new javax.swing.JButton();
         btnReview = new javax.swing.JButton();
+        btnComentario1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -149,6 +171,19 @@ public class Inicio2 extends javax.swing.JFrame {
         searchTxt.setForeground(new java.awt.Color(204, 204, 204));
         searchTxt.setText("Buscar figuras");
         searchTxt.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        searchTxt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchTxtFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchTxtFocusLost(evt);
+            }
+        });
+        searchTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchTxtKeyReleased(evt);
+            }
+        });
         navBar.add(searchTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 30, 590, 40));
 
         lblRecomendaciones.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
@@ -167,6 +202,11 @@ public class Inicio2 extends javax.swing.JFrame {
         lblMisFiguras.setForeground(new java.awt.Color(255, 255, 255));
         lblMisFiguras.setText("Mis figuras");
         lblMisFiguras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblMisFiguras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblMisFigurasMouseClicked(evt);
+            }
+        });
         navBar.add(lblMisFiguras, new org.netbeans.lib.awtextra.AbsoluteConstraints(896, 40, 84, 22));
 
         homeIcon.setText("jLabel1");
@@ -202,36 +242,17 @@ public class Inicio2 extends javax.swing.JFrame {
         table.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Test", "Test", "test", "Nueva", "test", "test", "test"},
-                {null, null, null, "Nueva", null, "Comics & Superhéroes", null},
-                {null, null, null, "Casi nueva", null, null, null},
-                {null, null, null, "Casi nueva", null, "Películas", null},
-                {null, null, null, "Usada/Fuera de la Caja", null, null, null},
-                {null, null, null, "Dañada", null, "Series & Televisión", ""},
-                {null, null, null, "Restaurada", null, "Videojuegos", null},
-                {null, null, null, "Dañada", null, "Anime", null},
-                {null, null, null, "Usada/Fuera de la caja", null, "Deportes", null},
-                {null, null, null, "Nueva", null, "Música", null},
-                {null, null, null, "Casi nueva", null, "Disney", null},
-                {null, null, null, "Nueva", null, "Videojuegos", null},
-                {null, null, null, "Dañada", null, "Películas", null},
-                {null, null, null, "Usada/Fuera de la caja", null, null, null},
-                {null, null, null, "Restaurada", null, "Anime", null},
-                {null, null, null, "Casi nueva", null, "Comics & Superhéroes", null},
-                {null, null, null, "Dañada", null, "Música", null},
-                {null, null, null, "Nueva", null, "Disney", null},
-                {null, null, null, "Usada/Fuera de la caja", null, "Deportes", null},
-                {null, null, null, "Nueva", null, "Anime", null}
+
             },
             new String [] {
                 "Nombre", "Marca", "Fecha", "Estado", "Tamaño", "Categoría", "Precio"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                true, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -266,7 +287,7 @@ public class Inicio2 extends javax.swing.JFrame {
         chBoxComics.setBackground(new java.awt.Color(255, 255, 255));
         chBoxComics.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         chBoxComics.setForeground(new java.awt.Color(1, 22, 39));
-        chBoxComics.setText("Comics & Superhéroes");
+        chBoxComics.setText("Cómics & Superhéroes");
         chBoxComics.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chBoxComicsActionPerformed(evt);
@@ -433,7 +454,7 @@ public class Inicio2 extends javax.swing.JFrame {
         btnComentario.setBackground(new java.awt.Color(1, 22, 39));
         btnComentario.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
         btnComentario.setForeground(new java.awt.Color(255, 255, 255));
-        btnComentario.setText("Dejar Comentario");
+        btnComentario.setText("Ofrecer Intercambio");
         btnComentario.setToolTipText("");
         btnComentario.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(1, 22, 39), 2, true));
         btnComentario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -445,7 +466,7 @@ public class Inicio2 extends javax.swing.JFrame {
                 btnComentarioMouseExited(evt);
             }
         });
-        bg.add(btnComentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(833, 741, 194, 52));
+        bg.add(btnComentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 740, 194, 52));
 
         btnReview.setBackground(new java.awt.Color(1, 22, 39));
         btnReview.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
@@ -463,6 +484,23 @@ public class Inicio2 extends javax.swing.JFrame {
             }
         });
         bg.add(btnReview, new org.netbeans.lib.awtextra.AbsoluteConstraints(1049, 741, 194, 52));
+
+        btnComentario1.setBackground(new java.awt.Color(1, 22, 39));
+        btnComentario1.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
+        btnComentario1.setForeground(new java.awt.Color(255, 255, 255));
+        btnComentario1.setText("Dejar Comentario");
+        btnComentario1.setToolTipText("");
+        btnComentario1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(1, 22, 39), 2, true));
+        btnComentario1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnComentario1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnComentario1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnComentario1MouseExited(evt);
+            }
+        });
+        bg.add(btnComentario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(833, 741, 194, 52));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -499,7 +537,7 @@ public class Inicio2 extends javax.swing.JFrame {
 
         List<String> selectedCategories = new ArrayList<>();
         if (chBoxComics.isSelected()) {
-            selectedCategories.add("Comics & Superhéroes");
+            selectedCategories.add("Cómics & Superhéroes");
         }
         if (chBoxPeliculas.isSelected()) {
             selectedCategories.add("Películas");
@@ -542,16 +580,22 @@ public class Inicio2 extends javax.swing.JFrame {
 
         if (!selectedCategories.isEmpty()) {
             RowFilter<Object, Object> categoryFilter = RowFilter.orFilter(selectedCategories.stream()
-                    .map(category -> RowFilter.regexFilter(category, 5))
+                    .map(category -> RowFilter.regexFilter("(?i)" + category))
                     .collect(Collectors.toList()));
             filters.add(categoryFilter);
         }
 
         if (!selectedStates.isEmpty()) {
             RowFilter<Object, Object> stateFilter = RowFilter.orFilter(selectedStates.stream()
-                    .map(state -> RowFilter.regexFilter(state, 3))
+                    .map(state -> RowFilter.regexFilter("(?i)" + state))
                     .collect(Collectors.toList()));
             filters.add(stateFilter);
+        }
+
+        String searchText = searchTxt.getText().trim();
+        if (!searchText.isEmpty() && !searchText.equals("Buscar figuras")) {
+            RowFilter<Object, Object> searchFilter = RowFilter.regexFilter("(?i)" + searchText);
+            filters.add(searchFilter);
         }
 
         if (filters.isEmpty()) {
@@ -616,11 +660,78 @@ public class Inicio2 extends javax.swing.JFrame {
         configureCategoryFilter();
     }//GEN-LAST:event_chBoxRestauradaActionPerformed
 
+    private void lblMisFigurasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMisFigurasMouseClicked
+        new MisFiguras(usuario).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lblMisFigurasMouseClicked
+
+    private void searchTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTxtKeyReleased
+        configureCategoryFilter();
+    }//GEN-LAST:event_searchTxtKeyReleased
+
+    private void searchTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTxtFocusGained
+        if (searchTxt.getText().equals("Buscar figuras")) {
+            searchTxt.setText("");
+            searchTxt.setForeground(Color.WHITE);
+        }
+    }//GEN-LAST:event_searchTxtFocusGained
+
+    private void searchTxtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTxtFocusLost
+        if (searchTxt.getText().isEmpty()) {
+            searchTxt.setText("Buscar figuras");
+            searchTxt.setForeground(Color.WHITE);
+        }
+    }//GEN-LAST:event_searchTxtFocusLost
+
+    private void btnComentario1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComentario1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnComentario1MouseEntered
+
+    private void btnComentario1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComentario1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnComentario1MouseExited
+
+    private ArrayList<Figura> obtenerFiguras() {
+        Conexion conexion = new Conexion();
+        ArrayList<Figura> coleccion = new ArrayList<>();
+        Usuario usuario1 = new Usuario();
+        String sql = "SELECT nombre, numeroSerie, fechaAdquisicion, tamaño, precio, categoria, estado, marca, usuario FROM figuras WHERE usuario != ?";
+
+        try (PreparedStatement ps = conexion.establecerConexion().prepareStatement(sql)) {
+
+            ps.setString(1, usuario.getUsername());
+
+            ResultSet figurasRs = ps.executeQuery();
+
+            while (figurasRs.next()) {
+                Figura figura = new Figura();
+
+                figura.setNombre(figurasRs.getString("nombre"));
+                figura.setNumeroSerie(figurasRs.getString("numeroSerie"));
+                figura.setFechaAdquisicion(figurasRs.getDate("fechaAdquisicion").toLocalDate());
+                figura.setTamanio(figurasRs.getDouble("tamaño"));
+                figura.setValor(figurasRs.getDouble("precio"));
+                figura.setCategoria(figurasRs.getString("categoria"));
+                figura.setEstado(figurasRs.getString("estado"));
+                figura.setMarca(figurasRs.getString("marca"));
+                usuario1.setUsername(figurasRs.getString("usuario"));
+                coleccion.add(figura);
+
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al conectar a la base de datos" + e.getMessage());
+        }
+
+        return coleccion;
+
+    }
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Inicio2().setVisible(true);
+                Usuario usuario = new Usuario();
+                new Inicio2(usuario).setVisible(true);
             }
         });
     }
@@ -630,6 +741,7 @@ public class Inicio2 extends javax.swing.JFrame {
     private javax.swing.JLabel bellIcon;
     private javax.swing.JPanel bg;
     private javax.swing.JButton btnComentario;
+    private javax.swing.JButton btnComentario1;
     private javax.swing.JButton btnReview;
     private javax.swing.JCheckBox chBoxAnime;
     private javax.swing.JCheckBox chBoxComics;

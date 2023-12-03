@@ -180,7 +180,7 @@ public class MisFiguras extends javax.swing.JFrame {
         String nombre = txtNombre.getText();
         String numeroSerie = txtNumeroSerie.getText();
         String tamanio = txtTamanho.getText();
-        LocalDate fecha = null; // Inicializamos con null
+        LocalDate fecha = null;
         String formattedDate = "";
 
         if (dateChooser.getDate() != null) {
@@ -305,7 +305,8 @@ public class MisFiguras extends javax.swing.JFrame {
         btnAgregarFigura = new javax.swing.JButton();
         dateChooser = new com.toedter.calendar.JDateChooser();
         pnlNavTab = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        searchTxt1 = new javax.swing.JTextField();
+        searchTxt = new javax.swing.JTextField();
         lblNoticiasEventos = new javax.swing.JLabel();
         lblMisFiguras = new javax.swing.JLabel();
         lblRecomendaciones = new javax.swing.JLabel();
@@ -546,11 +547,24 @@ public class MisFiguras extends javax.swing.JFrame {
         pnlNavTab.setMaximumSize(new java.awt.Dimension(1280, 100));
         pnlNavTab.setMinimumSize(new java.awt.Dimension(1280, 100));
 
-        jTextField1.setBackground(new java.awt.Color(1, 22, 39));
-        jTextField1.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(226, 226, 226));
-        jTextField1.setText("Buscar figuras");
-        jTextField1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        searchTxt1.setBackground(new java.awt.Color(1, 22, 39));
+        searchTxt1.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        searchTxt1.setForeground(new java.awt.Color(226, 226, 226));
+        searchTxt1.setBorder(null);
+
+        searchTxt.setBackground(new java.awt.Color(1, 22, 39));
+        searchTxt.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        searchTxt.setForeground(new java.awt.Color(226, 226, 226));
+        searchTxt.setText("Buscar figuras");
+        searchTxt.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        searchTxt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchTxtFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchTxtFocusLost(evt);
+            }
+        });
 
         lblNoticiasEventos.setBackground(new java.awt.Color(1, 22, 39));
         lblNoticiasEventos.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
@@ -578,6 +592,11 @@ public class MisFiguras extends javax.swing.JFrame {
 
         lblIconoCasita.setText("jLabel6");
         lblIconoCasita.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblIconoCasita.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblIconoCasitaMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlNavTabLayout = new javax.swing.GroupLayout(pnlNavTab);
         pnlNavTab.setLayout(pnlNavTabLayout);
@@ -587,25 +606,29 @@ public class MisFiguras extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addComponent(lblIconoCasita)
                 .addGap(26, 26, 26)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblNoticiasEventos)
-                .addGap(18, 18, 18)
-                .addComponent(lblMisFiguras)
-                .addGap(18, 18, 18)
-                .addComponent(lblRecomendaciones)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblIconoNotificaciones)
-                .addGap(18, 18, 18)
-                .addComponent(lblIconoPerfil)
+                .addGroup(pnlNavTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(searchTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlNavTabLayout.createSequentialGroup()
+                        .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblNoticiasEventos)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblMisFiguras)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblRecomendaciones)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblIconoNotificaciones)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblIconoPerfil)))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         pnlNavTabLayout.setVerticalGroup(
             pnlNavTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlNavTabLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addComponent(searchTxt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
                 .addGroup(pnlNavTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNoticiasEventos)
                     .addComponent(lblMisFiguras)
                     .addComponent(lblRecomendaciones)
@@ -806,6 +829,25 @@ public class MisFiguras extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarFiguraActionPerformed
     }
 
+    private void searchTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTxtFocusGained
+        if (searchTxt.getText().equals("Buscar figuras")) {
+            searchTxt.setText("");
+            searchTxt.setForeground(Color.WHITE);
+        }
+    }//GEN-LAST:event_searchTxtFocusGained
+
+    private void searchTxtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTxtFocusLost
+        if (searchTxt.getText().isEmpty()) {
+            searchTxt.setText("Buscar figuras");
+            searchTxt.setForeground(Color.WHITE);
+        }
+    }//GEN-LAST:event_searchTxtFocusLost
+
+    private void lblIconoCasitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIconoCasitaMouseClicked
+        new Inicio2(usuario).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lblIconoCasitaMouseClicked
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -823,7 +865,6 @@ public class MisFiguras extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboxEstado;
     private com.toedter.calendar.JDateChooser dateChooser;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable jtblVerEditar;
     private javax.swing.JLabel lblAgregarFigura;
     private javax.swing.JLabel lblBlueBarMisFiguras;
@@ -847,6 +888,8 @@ public class MisFiguras extends javax.swing.JFrame {
     private javax.swing.JPanel pnlNavTab;
     private javax.swing.JPanel pnlVerEditarFigura;
     private javax.swing.JPanel pnlWhiteBackground;
+    private javax.swing.JTextField searchTxt;
+    private javax.swing.JTextField searchTxt1;
     private javax.swing.JTabbedPane tbpnlMisFiguras;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtNombre;

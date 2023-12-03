@@ -1,6 +1,7 @@
 package Interfaz;
 
 import Clases.Usuario;
+import java.awt.Color;
 import javax.swing.ImageIcon;
 
 public class Inicio1 extends javax.swing.JFrame {
@@ -41,7 +42,8 @@ public class Inicio1 extends javax.swing.JFrame {
 
         pnlWhiteBackground = new javax.swing.JPanel();
         pnlNavTab = new javax.swing.JPanel();
-        searchTxtField = new javax.swing.JTextField();
+        searchTxtField1 = new javax.swing.JTextField();
+        searchTxt = new javax.swing.JTextField();
         lblNoticiasEventos = new javax.swing.JLabel();
         lblMisFiguras = new javax.swing.JLabel();
         lblRecomendaciones = new javax.swing.JLabel();
@@ -63,17 +65,22 @@ public class Inicio1 extends javax.swing.JFrame {
         pnlNavTab.setMinimumSize(new java.awt.Dimension(1280, 100));
         pnlNavTab.setPreferredSize(new java.awt.Dimension(1280, 100));
 
-        searchTxtField.setBackground(new java.awt.Color(1, 22, 39));
-        searchTxtField.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        searchTxtField.setForeground(new java.awt.Color(226, 226, 226));
-        searchTxtField.setText("Buscar figuras");
-        searchTxtField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
-        searchTxtField.addFocusListener(new java.awt.event.FocusAdapter() {
+        searchTxtField1.setBackground(new java.awt.Color(1, 22, 39));
+        searchTxtField1.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        searchTxtField1.setForeground(new java.awt.Color(226, 226, 226));
+        searchTxtField1.setBorder(null);
+
+        searchTxt.setBackground(new java.awt.Color(1, 22, 39));
+        searchTxt.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
+        searchTxt.setForeground(new java.awt.Color(226, 226, 226));
+        searchTxt.setText("Buscar figuras");
+        searchTxt.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        searchTxt.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                searchTxtFieldFocusGained(evt);
+                searchTxtFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                searchTxtFieldFocusLost(evt);
+                searchTxtFocusLost(evt);
             }
         });
 
@@ -117,32 +124,37 @@ public class Inicio1 extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addComponent(lblIconoCasita)
                 .addGap(26, 26, 26)
-                .addComponent(searchTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblNoticiasEventos)
-                .addGap(18, 18, 18)
-                .addComponent(lblMisFiguras)
-                .addGap(18, 18, 18)
-                .addComponent(lblRecomendaciones)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblIconoNotificaciones)
-                .addGap(18, 18, 18)
-                .addComponent(lblIconoPerfil)
+                .addGroup(pnlNavTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(searchTxtField1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlNavTabLayout.createSequentialGroup()
+                        .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblNoticiasEventos)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblMisFiguras)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblRecomendaciones)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblIconoNotificaciones)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblIconoPerfil)))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         pnlNavTabLayout.setVerticalGroup(
             pnlNavTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlNavTabLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(11, 11, 11)
+                .addComponent(searchTxtField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlNavTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNoticiasEventos)
                     .addComponent(lblMisFiguras)
                     .addComponent(lblRecomendaciones)
                     .addComponent(lblIconoNotificaciones)
                     .addComponent(lblIconoPerfil)
                     .addComponent(lblIconoCasita))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pnlWhiteBackground.add(pnlNavTab, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1290, 100));
@@ -166,15 +178,19 @@ public class Inicio1 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void searchTxtFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTxtFieldFocusGained
-    }//GEN-LAST:event_searchTxtFieldFocusGained
-
-    private void searchTxtFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTxtFieldFocusLost
-
-        if (searchTxtField.getText().equals("Buscar figuras") || searchTxtField.getText().isEmpty()) {
-            searchTxtField.setText("Buscar figuras");
+    private void searchTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTxtFocusGained
+        if (searchTxt.getText().equals("Buscar figuras")) {
+            searchTxt.setText("");
+            searchTxt.setForeground(Color.WHITE);
         }
-    }//GEN-LAST:event_searchTxtFieldFocusLost
+    }//GEN-LAST:event_searchTxtFocusGained
+
+    private void searchTxtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTxtFocusLost
+        if (searchTxt.getText().isEmpty()) {
+            searchTxt.setText("Buscar figuras");
+            searchTxt.setForeground(Color.WHITE);
+        }
+    }//GEN-LAST:event_searchTxtFocusLost
 
     private void lblMisFigurasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMisFigurasMouseClicked
         new MisFiguras(usuario).setVisible(true);
@@ -200,6 +216,7 @@ public class Inicio1 extends javax.swing.JFrame {
     private javax.swing.JLabel lblRecomendaciones;
     private javax.swing.JPanel pnlNavTab;
     private javax.swing.JPanel pnlWhiteBackground;
-    private javax.swing.JTextField searchTxtField;
+    private javax.swing.JTextField searchTxt;
+    private javax.swing.JTextField searchTxtField1;
     // End of variables declaration//GEN-END:variables
 }
