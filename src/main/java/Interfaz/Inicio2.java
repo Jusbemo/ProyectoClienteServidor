@@ -23,6 +23,8 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
+import org.apache.commons.lang3.tuple.MutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 public class Inicio2 extends javax.swing.JFrame {
 
@@ -91,22 +93,61 @@ public class Inicio2 extends javax.swing.JFrame {
         tHeader.setForeground(Color.WHITE);
         tHeader.setFont(new Font("Roboto", Font.BOLD, 24));
 
-        figuras = obtenerFiguras();
-        Object rowData[] = new Object[7];
+        MutablePair<ArrayList<Figura>, Usuario> resultado = (MutablePair<ArrayList<Figura>, Usuario>) obtenerFiguras();
+
+        figuras = resultado.getLeft();
+        Object rowData[] = new Object[8];
 
         for (Figura figura : figuras) {
-            rowData[0] = figura.getNombre();
-            rowData[1] = figura.getMarca();
-            rowData[2] = figura.getFechaAdquisicion();
-            rowData[3] = figura.getEstado();
-            rowData[4] = figura.getTamanio();
-            rowData[5] = figura.getCategoria();
-            rowData[6] = figura.getValor();
+            rowData[0] = figura.getNumeroSerie();
+            rowData[1] = figura.getNombre();
+            rowData[2] = figura.getMarca();
+            rowData[3] = figura.getFechaAdquisicion();
+            rowData[4] = figura.getEstado();
+            rowData[5] = figura.getTamanio();
+            rowData[6] = figura.getCategoria();
+            rowData[7] = figura.getValor();
 
             model.addRow(rowData);
 
         }
 
+    }
+
+    private Pair<ArrayList<Figura>, Usuario> obtenerFiguras() {
+        Conexion conexion = new Conexion();
+        ArrayList<Figura> coleccion = new ArrayList<>();
+        Usuario usuario1 = new Usuario();
+        Pair<ArrayList<Figura>, Usuario> resultado = new MutablePair<>();
+        String sql = "SELECT nombre, numeroSerie, fechaAdquisicion, tamaño, precio, categoria, estado, marca, usuario FROM figuras WHERE usuario != ?";
+
+        try (PreparedStatement ps = conexion.establecerConexion().prepareStatement(sql)) {
+
+            ps.setString(1, usuario.getUsername());
+
+            ResultSet figurasRs = ps.executeQuery();
+
+            while (figurasRs.next()) {
+                Figura figura = new Figura();
+
+                figura.setNombre(figurasRs.getString("nombre"));
+                figura.setNumeroSerie(figurasRs.getString("numeroSerie"));
+                figura.setFechaAdquisicion(figurasRs.getDate("fechaAdquisicion").toLocalDate());
+                figura.setTamanio(figurasRs.getDouble("tamaño"));
+                figura.setValor(figurasRs.getDouble("precio"));
+                figura.setCategoria(figurasRs.getString("categoria"));
+                figura.setEstado(figurasRs.getString("estado"));
+                figura.setMarca(figurasRs.getString("marca"));
+                usuario1.setUsername(figurasRs.getString("usuario"));
+                coleccion.add(figura);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al conectar a la base de datos" + e.getMessage());
+        }
+
+        resultado = new MutablePair<>(coleccion, usuario1);
+
+        return resultado;
     }
 
     @SuppressWarnings("unchecked")
@@ -250,14 +291,14 @@ public class Inicio2 extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Marca", "Fecha", "Estado", "Tamaño", "Categoría", "Precio"
+                "# Serie", "Nombre", "Marca", "Fecha", "Estado", "Tamaño", "Categoría", "Precio"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false
+                false, true, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -471,7 +512,7 @@ public class Inicio2 extends javax.swing.JFrame {
                 btnComentarioMouseExited(evt);
             }
         });
-        bg.add(btnComentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 740, 194, 52));
+        bg.add(btnComentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(574, 740, 230, 52));
 
         btnReview.setBackground(new java.awt.Color(1, 22, 39));
         btnReview.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
@@ -497,6 +538,11 @@ public class Inicio2 extends javax.swing.JFrame {
         btnComentario1.setToolTipText("");
         btnComentario1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(1, 22, 39), 2, true));
         btnComentario1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnComentario1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComentario1ActionPerformed(evt);
+            }
+        });
         bg.add(btnComentario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(833, 741, 194, 52));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -681,44 +727,38 @@ public class Inicio2 extends javax.swing.JFrame {
     }//GEN-LAST:event_searchTxtFocusLost
 
     private void userIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userIconMouseClicked
-       new Perfil(usuario).setVisible(true);
-       this.dispose();
+        new Perfil(usuario).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_userIconMouseClicked
 
-    private ArrayList<Figura> obtenerFiguras() {
-        Conexion conexion = new Conexion();
-        ArrayList<Figura> coleccion = new ArrayList<>();
-        Usuario usuario1 = new Usuario();
-        String sql = "SELECT nombre, numeroSerie, fechaAdquisicion, tamaño, precio, categoria, estado, marca, usuario FROM figuras WHERE usuario != ?";
+    private void btnComentario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComentario1ActionPerformed
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        int selectedRowIndex = table.getSelectedRow();
 
-        try (PreparedStatement ps = conexion.establecerConexion().prepareStatement(sql)) {
+        if (selectedRowIndex != -1) {
+            String serialNumber = model.getValueAt(selectedRowIndex, 0).toString();
 
-            ps.setString(1, usuario.getUsername());
+            MutablePair<ArrayList<Figura>, Usuario> resultado = (MutablePair<ArrayList<Figura>, Usuario>) obtenerFiguras();
 
-            ResultSet figurasRs = ps.executeQuery();
+            Figura figuraInfo = null;
 
-            while (figurasRs.next()) {
-                Figura figura = new Figura();
-
-                figura.setNombre(figurasRs.getString("nombre"));
-                figura.setNumeroSerie(figurasRs.getString("numeroSerie"));
-                figura.setFechaAdquisicion(figurasRs.getDate("fechaAdquisicion").toLocalDate());
-                figura.setTamanio(figurasRs.getDouble("tamaño"));
-                figura.setValor(figurasRs.getDouble("precio"));
-                figura.setCategoria(figurasRs.getString("categoria"));
-                figura.setEstado(figurasRs.getString("estado"));
-                figura.setMarca(figurasRs.getString("marca"));
-                usuario1.setUsername(figurasRs.getString("usuario"));
-                coleccion.add(figura);
-
+            for (Figura figura : figuras) {
+                if (figura.getNumeroSerie().equals(serialNumber)) {
+                    figuraInfo = figura;
+                    break;
+                }
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al conectar a la base de datos" + e.getMessage());
+
+            if (figuraInfo != null) {
+                new Comentarios(usuario, figuraInfo).setVisible(true);
+                this.dispose();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecciona una figura para comentar");
         }
 
-        return coleccion;
 
-    }
+    }//GEN-LAST:event_btnComentario1ActionPerformed
 
     public static void main(String args[]) {
 

@@ -406,7 +406,6 @@ public class InicioSesion extends javax.swing.JFrame {
 
         try {
             if (usuario != null && usuario.validarAtributos()) {
-                // AGREGAR CODIGO PARA INICIO SE LE DEBE ENVIAR COMO PARAMETRO EL OBJETO USUARIO A LA NUEVA VENTANA INICIO
                 Inicio2 inicio = new Inicio2(usuario);
                 inicio.setVisible(true);
                 this.dispose();
