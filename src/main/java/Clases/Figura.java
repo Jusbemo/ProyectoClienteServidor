@@ -1,6 +1,7 @@
 package Clases;
 
 import Conexion.Conexion;
+import java.io.Serializable;
 import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class Figura {
+public class Figura implements Serializable {
 
     private String nombre;
     private String numeroSerie;
@@ -143,7 +144,6 @@ public class Figura {
 
         try (CallableStatement cs = conexion.establecerConexion().prepareCall(sql)) {
 
-            System.out.println(figura.getFechaAdquisicion().toString());
             cs.setString(1, figura.getNombre());
             cs.setString(2, figura.getNumeroSerie());
             cs.setDate(3, Date.valueOf(figura.getFechaAdquisicion()));

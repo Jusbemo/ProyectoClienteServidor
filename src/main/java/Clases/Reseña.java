@@ -1,9 +1,10 @@
 package Clases;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Reseña {
+public class Reseña implements Serializable {
 
     private Usuario usuario;
     private String titulo;
