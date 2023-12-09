@@ -589,6 +589,11 @@ public class MisFiguras extends javax.swing.JFrame {
 
         lblIconoPerfil.setText("jLabel5");
         lblIconoPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblIconoPerfil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblIconoPerfilMouseClicked(evt);
+            }
+        });
 
         lblIconoCasita.setText("jLabel6");
         lblIconoCasita.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -847,6 +852,11 @@ public class MisFiguras extends javax.swing.JFrame {
         new Inicio2(usuario).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblIconoCasitaMouseClicked
+
+    private void lblIconoPerfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIconoPerfilMouseClicked
+        new Perfil(usuario).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lblIconoPerfilMouseClicked
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
