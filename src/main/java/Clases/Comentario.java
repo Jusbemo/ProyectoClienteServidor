@@ -6,8 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class Comentario implements Serializable {
 
@@ -61,7 +60,7 @@ public class Comentario implements Serializable {
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            Logger.getLogger(Comentario.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al crear el comentario" +  ex.getMessage());
         }
     }
 
