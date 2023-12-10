@@ -22,10 +22,6 @@ public class Perfil extends javax.swing.JFrame {
         setComponentProperties();
         mostrarInformacionUsuario(usuario);
         setTableReviewsProperties();
-        
-        for(Figura figura : figuras){
-            System.out.println(figura.getResenias().toString());
-        }
     }
 
     public final void setComponentProperties() {
@@ -59,7 +55,7 @@ public class Perfil extends javax.swing.JFrame {
             for (Figura figura : usuario.getColeccion()) {
                 precioEstimado += figura.getValor();
             }
-            lblPrecio.setText(String.valueOf(precioEstimado));
+            lblPrecio1.setText(String.valueOf(precioEstimado));
         }
     }
 
@@ -117,14 +113,14 @@ public class Perfil extends javax.swing.JFrame {
         pnlNotificaciones = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtblReseñas = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jtblReseñas1 = new javax.swing.JTable();
         lblNúmero = new javax.swing.JLabel();
         lblNúmeroFiguras = new javax.swing.JLabel();
         backLbl = new javax.swing.JLabel();
         lblIconoFide1 = new javax.swing.JLabel();
         lblPrecioEstimado = new javax.swing.JLabel();
-        lblPrecio = new javax.swing.JLabel();
+        lblPrecio1 = new javax.swing.JLabel();
+        lblPrecio2 = new javax.swing.JLabel();
+        lblPrecio3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1280, 830));
@@ -296,50 +292,25 @@ public class Perfil extends javax.swing.JFrame {
         jtblReseñas.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jtblReseñas);
 
-        jtblReseñas1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        jtblReseñas1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Usuario", "Número de Serie", "Calificación", "Reseña", "Fecha"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jtblReseñas1.setRowHeight(35);
-        jtblReseñas1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jtblReseñas1);
-
         javax.swing.GroupLayout pnlNotificacionesLayout = new javax.swing.GroupLayout(pnlNotificaciones);
         pnlNotificaciones.setLayout(pnlNotificacionesLayout);
         pnlNotificacionesLayout.setHorizontalGroup(
             pnlNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1280, Short.MAX_VALUE)
             .addGroup(pnlNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlNotificacionesLayout.createSequentialGroup()
-                    .addGap(0, 40, Short.MAX_VALUE)
-                    .addGroup(pnlNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(0, 40, Short.MAX_VALUE)))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNotificacionesLayout.createSequentialGroup()
+                    .addContainerGap(40, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(40, Short.MAX_VALUE)))
         );
         pnlNotificacionesLayout.setVerticalGroup(
             pnlNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 740, Short.MAX_VALUE)
+            .addGap(0, 509, Short.MAX_VALUE)
             .addGroup(pnlNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlNotificacionesLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNotificacionesLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(18, Short.MAX_VALUE)))
         );
 
         tbdPerfil.addTab("Reseñas", pnlNotificaciones);
@@ -350,7 +321,7 @@ public class Perfil extends javax.swing.JFrame {
         lblNúmero.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
         lblNúmero.setForeground(new java.awt.Color(255, 255, 255));
         lblNúmero.setText("0");
-        pnlPerfil.add(lblNúmero, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 350, -1));
+        pnlPerfil.add(lblNúmero, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 214, 350, -1));
 
         lblNúmeroFiguras.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
         lblNúmeroFiguras.setForeground(new java.awt.Color(255, 255, 255));
@@ -377,11 +348,23 @@ public class Perfil extends javax.swing.JFrame {
         lblPrecioEstimado.setText("Precio Estimado");
         pnlPerfil.add(lblPrecioEstimado, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 370, -1));
 
-        lblPrecio.setBackground(new java.awt.Color(255, 255, 255));
-        lblPrecio.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
-        lblPrecio.setForeground(new java.awt.Color(255, 255, 255));
-        lblPrecio.setText("0");
-        pnlPerfil.add(lblPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 330, -1));
+        lblPrecio1.setBackground(new java.awt.Color(255, 255, 255));
+        lblPrecio1.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
+        lblPrecio1.setForeground(new java.awt.Color(255, 255, 255));
+        lblPrecio1.setText("0");
+        pnlPerfil.add(lblPrecio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 210, -1));
+
+        lblPrecio2.setBackground(new java.awt.Color(255, 255, 255));
+        lblPrecio2.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
+        lblPrecio2.setForeground(new java.awt.Color(255, 255, 255));
+        lblPrecio2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utilidades/robot-solid.png"))); // NOI18N
+        pnlPerfil.add(lblPrecio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 212, 40, 40));
+
+        lblPrecio3.setBackground(new java.awt.Color(255, 255, 255));
+        lblPrecio3.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
+        lblPrecio3.setForeground(new java.awt.Color(255, 255, 255));
+        lblPrecio3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utilidades/colon-sign-solid.png"))); // NOI18N
+        pnlPerfil.add(lblPrecio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 212, 30, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -421,9 +404,7 @@ public class Perfil extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backLbl;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jtblReseñas;
-    private javax.swing.JTable jtblReseñas1;
     private javax.swing.JLabel lblApellidos;
     private javax.swing.JLabel lblApellidosAboutMe;
     private javax.swing.JLabel lblCorreo;
@@ -441,7 +422,9 @@ public class Perfil extends javax.swing.JFrame {
     private javax.swing.JLabel lblNúmeroFiguras;
     private javax.swing.JLabel lblPais;
     private javax.swing.JLabel lblPaisAboutMe;
-    private javax.swing.JLabel lblPrecio;
+    private javax.swing.JLabel lblPrecio1;
+    private javax.swing.JLabel lblPrecio2;
+    private javax.swing.JLabel lblPrecio3;
     private javax.swing.JLabel lblPrecioEstimado;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblUsuarioAboutMe;
