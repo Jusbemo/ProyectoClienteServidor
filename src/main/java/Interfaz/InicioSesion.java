@@ -364,7 +364,7 @@ public class InicioSesion extends javax.swing.JFrame {
                 figura.setEstado(figurasRs.getString("estado"));
                 figura.setMarca(figurasRs.getString("marca"));
 
-                ArrayList<Reseña> resenias = obtenerResenias(figura.getNumeroSerie(), reseniasPs, usuario);
+                ArrayList<Reseña> resenias = obtenerResenias(figura.getNumeroSerie(), reseniasPs);
 
                 figura.setResenias(resenias);
                 figuras.add(figura);
@@ -374,20 +374,22 @@ public class InicioSesion extends javax.swing.JFrame {
         return figuras;
     }
 
-    private ArrayList<Reseña> obtenerResenias(String numeroSerie, PreparedStatement reseniasPs, Usuario usuario) throws SQLException {
+    private ArrayList<Reseña> obtenerResenias(String numeroSerie, PreparedStatement reseniasPs) throws SQLException {
         ArrayList<Reseña> resenias = new ArrayList<>();
 
         reseniasPs.setString(1, numeroSerie);
-
+        
+        Usuario usuario = new Usuario();
+        
         try (ResultSet reseniasRs = reseniasPs.executeQuery()) {
             while (reseniasRs.next()) {
                 Reseña reseña = new Reseña();
-                reseña.setTitulo(reseniasRs.getString("titulo"));
                 reseña.setTexto(reseniasRs.getString("contenido"));
                 reseña.setCalificacion(reseniasRs.getInt("calificacion"));
+                usuario.setUsername(reseniasRs.getString("usuario"));
                 reseña.setUsuario(usuario);
-                reseña.setHoraResenia(reseniasRs.getTime("hora").toLocalTime());
                 reseña.setFechaResenia(reseniasRs.getDate("fecha").toLocalDate());
+                reseña.setNumeroSerieFigura(reseniasRs.getString("figura"));
 
                 resenias.add(reseña);
             }
@@ -403,7 +405,8 @@ public class InicioSesion extends javax.swing.JFrame {
         String password = String.valueOf(txtPassword.getPassword());
 
         Usuario usuario = validarInicioSesion(username, password);
-
+        
+        
         try {
             if (usuario != null && usuario.validarAtributos()) {
                 Inicio2 inicio = new Inicio2(usuario);

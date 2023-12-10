@@ -348,7 +348,7 @@ public class MisFiguras extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, false, true, true, true, true, false
+                true, true, true, true, true, true, true, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -854,7 +854,7 @@ public class MisFiguras extends javax.swing.JFrame {
     }//GEN-LAST:event_lblIconoCasitaMouseClicked
 
     private void lblIconoPerfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIconoPerfilMouseClicked
-        new Perfil(usuario).setVisible(true);
+        new Perfil(usuario, usuario.getColeccion()).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblIconoPerfilMouseClicked
 

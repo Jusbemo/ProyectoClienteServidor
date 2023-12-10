@@ -40,7 +40,6 @@ public class Inicio2 extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         rowSorter = new TableRowSorter<>(model);
         table.setRowSorter(rowSorter);
-
     }
 
     public final void setComponentProperties() {
@@ -284,7 +283,6 @@ public class Inicio2 extends javax.swing.JFrame {
 
         bg.add(separator, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 144, 1, 630));
 
-        table.setBackground(new java.awt.Color(255, 255, 255));
         table.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -529,7 +527,12 @@ public class Inicio2 extends javax.swing.JFrame {
                 btnReviewMouseExited(evt);
             }
         });
-        bg.add(btnReview, new org.netbeans.lib.awtextra.AbsoluteConstraints(1049, 741, 194, 52));
+        btnReview.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReviewActionPerformed(evt);
+            }
+        });
+        bg.add(btnReview, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 90, 194, 52));
 
         btnComentario1.setBackground(new java.awt.Color(1, 22, 39));
         btnComentario1.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
@@ -543,7 +546,7 @@ public class Inicio2 extends javax.swing.JFrame {
                 btnComentario1ActionPerformed(evt);
             }
         });
-        bg.add(btnComentario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(833, 741, 194, 52));
+        bg.add(btnComentario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 90, 194, 52));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -727,7 +730,7 @@ public class Inicio2 extends javax.swing.JFrame {
     }//GEN-LAST:event_searchTxtFocusLost
 
     private void userIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userIconMouseClicked
-        new Perfil(usuario).setVisible(true);
+        new Perfil(usuario, usuario.getColeccion()).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_userIconMouseClicked
 
@@ -759,6 +762,32 @@ public class Inicio2 extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnComentario1ActionPerformed
+
+    private void btnReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReviewActionPerformed
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        int selectedRowIndex = table.getSelectedRow();
+
+        if (selectedRowIndex != -1) {
+            String serialNumber = model.getValueAt(selectedRowIndex, 0).toString();
+
+            MutablePair<ArrayList<Figura>, Usuario> resultado = (MutablePair<ArrayList<Figura>, Usuario>) obtenerFiguras();
+
+            Figura figuraInfo = null;
+
+            for (Figura figura : figuras) {
+                if (figura.getNumeroSerie().equals(serialNumber)) {
+                    figuraInfo = figura;
+                    break;
+                }
+            }
+
+            if (figuraInfo != null) {
+                new AñadirReseña(usuario, figuraInfo).setVisible(true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecciona una figura para calificar");
+        }
+    }//GEN-LAST:event_btnReviewActionPerformed
 
     public static void main(String args[]) {
 
