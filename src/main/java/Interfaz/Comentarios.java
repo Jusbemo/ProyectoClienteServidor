@@ -129,8 +129,8 @@ public class Comentarios extends javax.swing.JFrame {
         searchTxtField1 = new javax.swing.JTextField();
         title = new javax.swing.JLabel();
         commentsSection = new javax.swing.JLayeredPane();
-        txtComment = new javax.swing.JTextField();
         addComentario = new javax.swing.JButton();
+        txtComment = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1280, 830));
@@ -255,18 +255,21 @@ public class Comentarios extends javax.swing.JFrame {
         title.setText("Comentarios");
         pnlWhiteBackground.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, 60));
 
-        javax.swing.GroupLayout commentsSectionLayout = new javax.swing.GroupLayout(commentsSection);
-        commentsSection.setLayout(commentsSectionLayout);
-        commentsSectionLayout.setHorizontalGroup(
-            commentsSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1290, Short.MAX_VALUE)
-        );
-        commentsSectionLayout.setVerticalGroup(
-            commentsSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
-        );
-
-        pnlWhiteBackground.add(commentsSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 1290, 580));
+        addComentario.setBackground(new java.awt.Color(1, 22, 39));
+        addComentario.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        addComentario.setForeground(new java.awt.Color(255, 255, 255));
+        addComentario.setText("Enviar");
+        addComentario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addComentario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addComentarioMouseClicked(evt);
+            }
+        });
+        addComentario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addComentarioActionPerformed(evt);
+            }
+        });
 
         txtComment.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         txtComment.setText("Deja tu comentario");
@@ -279,19 +282,32 @@ public class Comentarios extends javax.swing.JFrame {
                 txtCommentFocusLost(evt);
             }
         });
-        pnlWhiteBackground.add(txtComment, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 770, 920, 50));
 
-        addComentario.setBackground(new java.awt.Color(1, 22, 39));
-        addComentario.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        addComentario.setForeground(new java.awt.Color(255, 255, 255));
-        addComentario.setText("Enviar");
-        addComentario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        addComentario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addComentarioMouseClicked(evt);
-            }
-        });
-        pnlWhiteBackground.add(addComentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 770, 150, 50));
+        commentsSection.setLayer(addComentario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        commentsSection.setLayer(txtComment, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout commentsSectionLayout = new javax.swing.GroupLayout(commentsSection);
+        commentsSection.setLayout(commentsSectionLayout);
+        commentsSectionLayout.setHorizontalGroup(
+            commentsSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(commentsSectionLayout.createSequentialGroup()
+                .addGap(90, 90, 90)
+                .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(addComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(120, Short.MAX_VALUE))
+        );
+        commentsSectionLayout.setVerticalGroup(
+            commentsSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(commentsSectionLayout.createSequentialGroup()
+                .addGap(209, 209, 209)
+                .addGroup(commentsSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(321, Short.MAX_VALUE))
+        );
+
+        pnlWhiteBackground.add(commentsSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 1290, 580));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -378,9 +394,13 @@ public class Comentarios extends javax.swing.JFrame {
     }//GEN-LAST:event_lblIconoCasitaMouseClicked
 
     private void lblIconoPerfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIconoPerfilMouseClicked
-        new Perfil(usuario).setVisible(true);
+        new Perfil(usuario, usuario.getColeccion()).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblIconoPerfilMouseClicked
+
+    private void addComentarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addComentarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addComentarioActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

@@ -1,18 +1,31 @@
 package Interfaz;
 
 import Clases.Figura;
+import Clases.Reseña;
 import Clases.Usuario;
+import java.awt.Color;
+import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class Perfil extends javax.swing.JFrame {
 
     private Usuario usuario;
+    private ArrayList<Figura> figuras = new ArrayList<>();
 
-    public Perfil(Usuario usuario) {
+    public Perfil(Usuario usuario, ArrayList<Figura> figuras) {
         this.usuario = usuario;
+        this.figuras = figuras;
         initComponents();
         setComponentProperties();
         mostrarInformacionUsuario(usuario);
+        setTableReviewsProperties();
+        
+        for(Figura figura : figuras){
+            System.out.println(figura.getResenias().toString());
+        }
     }
 
     public final void setComponentProperties() {
@@ -29,7 +42,7 @@ public class Perfil extends javax.swing.JFrame {
 
     }
 
-    private void mostrarInformacionUsuario(Usuario usuario) {     
+    private void mostrarInformacionUsuario(Usuario usuario) {
         if (usuario != null) {
             lblNombreUsuario.setText("@" + usuario.getUsername());
             lblNombreAboutMe.setText(usuario.getNombre());
@@ -46,10 +59,38 @@ public class Perfil extends javax.swing.JFrame {
             for (Figura figura : usuario.getColeccion()) {
                 precioEstimado += figura.getValor();
             }
-            lblPrecio.setText(String.valueOf(precioEstimado));  
+            lblPrecio.setText(String.valueOf(precioEstimado));
         }
     }
-    
+
+    private void setTableReviewsProperties() {
+        JTableHeader tHeader = jtblReseñas.getTableHeader();
+        tHeader.setBackground(Color.decode("#011627"));
+        tHeader.setForeground(Color.WHITE);
+        tHeader.setFont(new Font("Roboto", Font.BOLD, 20));
+        tHeader.setVisible(true);
+
+        DefaultTableModel model = (DefaultTableModel) jtblReseñas.getModel();
+        ArrayList<Reseña> coleccionReseñas = new ArrayList<>();
+        
+        for (Figura figura : figuras) {
+            coleccionReseñas.addAll(figura.getResenias());
+        }
+
+        Object rowData[] = new Object[5];
+
+        for (Reseña reseña : coleccionReseñas) {
+
+            rowData[0] = reseña.getUsuario().getUsername();
+            rowData[1] = reseña.getNumeroSerieFigura();
+            rowData[2] = reseña.getCalificacion();
+            rowData[3] = reseña.getTexto();
+            rowData[4] = reseña.getFechaResenia();
+
+            model.addRow(rowData);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -74,6 +115,10 @@ public class Perfil extends javax.swing.JFrame {
         lblCorreoAboutMe = new javax.swing.JLabel();
         lblUsuarioAboutMe = new javax.swing.JLabel();
         pnlNotificaciones = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtblReseñas = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtblReseñas1 = new javax.swing.JTable();
         lblNúmero = new javax.swing.JLabel();
         lblNúmeroFiguras = new javax.swing.JLabel();
         backLbl = new javax.swing.JLabel();
@@ -230,18 +275,74 @@ public class Perfil extends javax.swing.JFrame {
 
         pnlNotificaciones.setBackground(new java.awt.Color(255, 255, 255));
 
+        jtblReseñas.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jtblReseñas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Usuario", "Número de Serie", "Calificación", "Reseña", "Fecha"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtblReseñas.setRowHeight(35);
+        jtblReseñas.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jtblReseñas);
+
+        jtblReseñas1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        jtblReseñas1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Usuario", "Número de Serie", "Calificación", "Reseña", "Fecha"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtblReseñas1.setRowHeight(35);
+        jtblReseñas1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jtblReseñas1);
+
         javax.swing.GroupLayout pnlNotificacionesLayout = new javax.swing.GroupLayout(pnlNotificaciones);
         pnlNotificaciones.setLayout(pnlNotificacionesLayout);
         pnlNotificacionesLayout.setHorizontalGroup(
             pnlNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1280, Short.MAX_VALUE)
+            .addGroup(pnlNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlNotificacionesLayout.createSequentialGroup()
+                    .addGap(0, 40, Short.MAX_VALUE)
+                    .addGroup(pnlNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(0, 40, Short.MAX_VALUE)))
         );
         pnlNotificacionesLayout.setVerticalGroup(
             pnlNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 509, Short.MAX_VALUE)
+            .addGap(0, 740, Short.MAX_VALUE)
+            .addGroup(pnlNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlNotificacionesLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        tbdPerfil.addTab("Notificaciones", pnlNotificaciones);
+        tbdPerfil.addTab("Reseñas", pnlNotificaciones);
 
         pnlPerfil.add(tbdPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 1280, 540));
 
@@ -297,7 +398,7 @@ public class Perfil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backLblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backLblMouseClicked
-       new Inicio2(usuario).setVisible(true);
+        new Inicio2(usuario).setVisible(true);
         this.dispose();
 
     }//GEN-LAST:event_backLblMouseClicked
@@ -311,13 +412,18 @@ public class Perfil extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Usuario usuario = new Usuario();
-                new Perfil(usuario).setVisible(true);
+                ArrayList<Figura> figuras = new ArrayList<>();
+                new Perfil(usuario, figuras).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backLbl;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jtblReseñas;
+    private javax.swing.JTable jtblReseñas1;
     private javax.swing.JLabel lblApellidos;
     private javax.swing.JLabel lblApellidosAboutMe;
     private javax.swing.JLabel lblCorreo;
