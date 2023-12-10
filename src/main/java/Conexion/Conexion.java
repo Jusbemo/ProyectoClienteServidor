@@ -10,7 +10,7 @@ public class Conexion {
     private Connection connection = null;
     private final String url = "jdbc:mysql://localhost:3306/fidepop";
     private final String username = "root";
-    private final String password = "hATZ_9O7R";
+    private final String password = "admin123";
 
     public Connection establecerConexion() {
         try {

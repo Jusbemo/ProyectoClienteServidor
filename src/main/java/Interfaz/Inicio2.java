@@ -60,7 +60,6 @@ public class Inicio2 extends javax.swing.JFrame {
         userIcon.setBounds(100, 100, userIcon.getPreferredSize().width, userIcon.getPreferredSize().height);
 
         configureRoundedBorder(searchTxt, Color.WHITE, 12, 10);
-        configureRoundedBorder(btnComentario, Color.decode("#011627"), 12, 10);
         configureRoundedBorder(btnReview, Color.decode("#011627"), 12, 10);
         setTableProperties();
 
@@ -184,7 +183,6 @@ public class Inicio2 extends javax.swing.JFrame {
         chBoxUsada = new javax.swing.JCheckBox();
         chBoxDamaged = new javax.swing.JCheckBox();
         chBoxRestaurada = new javax.swing.JCheckBox();
-        btnComentario = new javax.swing.JButton();
         btnReview = new javax.swing.JButton();
         btnComentario1 = new javax.swing.JButton();
 
@@ -230,6 +228,11 @@ public class Inicio2 extends javax.swing.JFrame {
         lblRecomendaciones.setForeground(new java.awt.Color(255, 255, 255));
         lblRecomendaciones.setText("Recomendaciones");
         lblRecomendaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblRecomendaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblRecomendacionesMouseClicked(evt);
+            }
+        });
         navBar.add(lblRecomendaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 40, 139, 22));
 
         lblNoticiasYEventos.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
@@ -495,23 +498,6 @@ public class Inicio2 extends javax.swing.JFrame {
         });
         bg.add(chBoxRestaurada, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 630, -1, 30));
 
-        btnComentario.setBackground(new java.awt.Color(1, 22, 39));
-        btnComentario.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
-        btnComentario.setForeground(new java.awt.Color(255, 255, 255));
-        btnComentario.setText("Ofrecer Intercambio");
-        btnComentario.setToolTipText("");
-        btnComentario.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(1, 22, 39), 2, true));
-        btnComentario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnComentario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnComentarioMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnComentarioMouseExited(evt);
-            }
-        });
-        bg.add(btnComentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(574, 740, 230, 52));
-
         btnReview.setBackground(new java.awt.Color(1, 22, 39));
         btnReview.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
         btnReview.setForeground(new java.awt.Color(255, 255, 255));
@@ -532,7 +518,7 @@ public class Inicio2 extends javax.swing.JFrame {
                 btnReviewActionPerformed(evt);
             }
         });
-        bg.add(btnReview, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 90, 194, 52));
+        bg.add(btnReview, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 740, 194, 52));
 
         btnComentario1.setBackground(new java.awt.Color(1, 22, 39));
         btnComentario1.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
@@ -546,7 +532,7 @@ public class Inicio2 extends javax.swing.JFrame {
                 btnComentario1ActionPerformed(evt);
             }
         });
-        bg.add(btnComentario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 90, 194, 52));
+        bg.add(btnComentario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 740, 194, 52));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -561,14 +547,6 @@ public class Inicio2 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnComentarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComentarioMouseEntered
-        btnComentario.setBackground(Color.decode("#033762"));
-    }//GEN-LAST:event_btnComentarioMouseEntered
-
-    private void btnComentarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComentarioMouseExited
-        btnComentario.setBackground(Color.decode("#011627"));
-    }//GEN-LAST:event_btnComentarioMouseExited
 
     private void btnReviewMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReviewMouseEntered
         btnReview.setBackground(Color.decode("#033762"));
@@ -789,6 +767,11 @@ public class Inicio2 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnReviewActionPerformed
 
+    private void lblRecomendacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRecomendacionesMouseClicked
+        new Recomendaciones(usuario).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lblRecomendacionesMouseClicked
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -803,7 +786,6 @@ public class Inicio2 extends javax.swing.JFrame {
     private javax.swing.JTextField TEST;
     private javax.swing.JLabel bellIcon;
     private javax.swing.JPanel bg;
-    private javax.swing.JButton btnComentario;
     private javax.swing.JButton btnComentario1;
     private javax.swing.JButton btnReview;
     private javax.swing.JCheckBox chBoxAnime;
