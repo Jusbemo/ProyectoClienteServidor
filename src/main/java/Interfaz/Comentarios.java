@@ -52,6 +52,8 @@ public class Comentarios extends javax.swing.JFrame {
         for (Comentario comentario : listaComentarios) {
             commentsSection.add(new CComentario("@" + comentario.getNombre().getUsername(), comentario.getContenido(), comentario.getFecha().toString(), comentario.getIntercambio()), "wrap");
         }
+
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
     }
 
     public ArrayList<Comentario> obtenerComentarios() {
@@ -129,11 +131,12 @@ public class Comentarios extends javax.swing.JFrame {
         lblIconoCasita = new javax.swing.JLabel();
         searchTxtField1 = new javax.swing.JTextField();
         title = new javax.swing.JLabel();
-        commentsSection = new javax.swing.JLayeredPane();
         txtComment = new javax.swing.JTextField();
         addComentario = new javax.swing.JButton();
         cboxChange = new javax.swing.JComboBox<>();
         lblNoticiasEventos1 = new javax.swing.JLabel();
+        scrollPane = new javax.swing.JScrollPane();
+        commentsSection = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1280, 830));
@@ -263,19 +266,6 @@ public class Comentarios extends javax.swing.JFrame {
         title.setText("Comentarios");
         pnlWhiteBackground.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, 60));
 
-        javax.swing.GroupLayout commentsSectionLayout = new javax.swing.GroupLayout(commentsSection);
-        commentsSection.setLayout(commentsSectionLayout);
-        commentsSectionLayout.setHorizontalGroup(
-            commentsSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1290, Short.MAX_VALUE)
-        );
-        commentsSectionLayout.setVerticalGroup(
-            commentsSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
-        );
-
-        pnlWhiteBackground.add(commentsSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 1290, 580));
-
         txtComment.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         txtComment.setText("Deja tu comentario");
         txtComment.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -313,6 +303,29 @@ public class Comentarios extends javax.swing.JFrame {
         lblNoticiasEventos1.setText("¿Intercambiar?");
         lblNoticiasEventos1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlWhiteBackground.add(lblNoticiasEventos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 750, -1, -1));
+
+        scrollPane.setBackground(new java.awt.Color(255, 255, 255));
+        scrollPane.setBorder(null);
+        scrollPane.setForeground(new java.awt.Color(255, 255, 255));
+        scrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        commentsSection.setBackground(new java.awt.Color(255, 255, 255));
+        commentsSection.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout commentsSectionLayout = new javax.swing.GroupLayout(commentsSection);
+        commentsSection.setLayout(commentsSectionLayout);
+        commentsSectionLayout.setHorizontalGroup(
+            commentsSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1290, Short.MAX_VALUE)
+        );
+        commentsSectionLayout.setVerticalGroup(
+            commentsSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 580, Short.MAX_VALUE)
+        );
+
+        scrollPane.setViewportView(commentsSection);
+
+        pnlWhiteBackground.add(scrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 1290, 580));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -447,6 +460,7 @@ public class Comentarios extends javax.swing.JFrame {
     private javax.swing.JLabel lblRecomendaciones;
     private javax.swing.JPanel pnlNavTab;
     private javax.swing.JPanel pnlWhiteBackground;
+    private javax.swing.JScrollPane scrollPane;
     private javax.swing.JTextField searchTxt;
     private javax.swing.JTextField searchTxtField1;
     private javax.swing.JLabel title;
